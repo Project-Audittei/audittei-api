@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Constants\TipoCodigoValidacao;
-use App\Models\User;
 use App\Models\ValidationControl;
 use App\Traits\ExpiravelTrait;
 use DateTime;

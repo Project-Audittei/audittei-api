@@ -18,23 +18,76 @@ jobs:
 
     - name: Criando arquivo .env 
       run: mv .env.example .env
-
-    - name: Replace variables in .env file
-      env:
-        APP_URL: ${{ secrets.APP_URL }}
-      run: |
-        env_file=".env"
-        if [ -f "$env_file" ]; then
-          while IFS= read -r line; do
-            if [[ $line =~ \{\{\ ([A-Z_]+)\ \}\} ]]; then
-              var_name=${BASH_REMATCH[1]}
-              secret_value=${!var_name}
-              if [ -n "$secret_value" ]; then
-                sed -i "s/{{ ${var_name} }}/$secret_value/g" "$env_file"
-              fi
-            fi
-          done < "$env_file"
-        fi
+    
+    - name: Definindo 'APP_URL'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ APP_URL }}'
+        replacement-text: '${{ secrets.APP_URL }}'
+    
+    - name: Definindo 'DB_HOST'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ DB_HOST }}'
+        replacement-text: '${{ secrets.DB_HOST }}'
+    
+    - name: Definindo 'DB_DATABASE'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ DB_DATABASE }}'
+        replacement-text: '${{ secrets.DB_DATABASE }}'
+    
+    - name: Definindo 'DB_USERNAME'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ DB_USERNAME }}'
+        replacement-text: '${{ secrets.DB_USERNAME }}'
+    
+    - name: Definindo 'DB_PASSWORD'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ DB_PASSWORD }}'
+        replacement-text: '${{ secrets.DB_PASSWORD }}'
+    
+    - name: Definindo 'MAIL_HOST'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ MAIL_HOST }}'
+        replacement-text: '${{ secrets.MAIL_HOST }}'
+    
+    - name: Definindo 'MAIL_PORT'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ MAIL_PORT }}'
+        replacement-text: '${{ secrets.MAIL_PORT }}'
+    
+    - name: Definindo 'MAIL_USERNAME'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ MAIL_USERNAME }}'
+        replacement-text: '${{ secrets.MAIL_USERNAME }}'
+    
+    - name: Definindo 'MAIL_PASSWORD'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ MAIL_PASSWORD }}'
+        replacement-text: '${{ secrets.MAIL_PASSWORD }}'
+    
+    - name: Definindo 'MAIL_FROM_ADDRESS'
+      uses: richardrigutins/replace-in-files@v2
+      with:
+        files: '.env'
+        search-text: '{{ MAIL_FROM_ADDRESS }}'
+        replacement-text: '${{ secrets.MAIL_FROM_ADDRESS }}'
 
     - name: Trocando versão do PHP
       uses: shivammathur/setup-php@v2

@@ -25,16 +25,16 @@ jobs:
         files: '.env'
         search-text: '{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}'
         replacement-text: |
-                      ${{ secrets.APP_URL }}, 
-                      ${{ secrets.DB_HOST }}, 
-                      ${{ secrets.DB_DATABASE }}, 
-                      ${{ secrets.DB_USERNAME }}, 
-                      ${{ secrets.DB_PASSWORD }},
-                      ${{ secrets.MAIL_HOST }},
-                      ${{ secrets.MAIL_PORT }},
-                      ${{ secrets.MAIL_USERNAME }},
-                      ${{ secrets.MAIL_PASSWORD }},
-                      ${{ secrets.MAIL_FROM_ADDRESS }}
+                      '{{${{ secrets.APP_URL }}}}', 
+                      '{{${{ secrets.DB_HOST }}}}', 
+                      '{{${{ secrets.DB_DATABASE }}}}', 
+                      '{{${{ secrets.DB_USERNAME }}}}', 
+                      '{{${{ secrets.DB_PASSWORD }}}}',
+                      '{{${{ secrets.MAIL_HOST }}}}',
+                      '{{${{ secrets.MAIL_PORT }}}}',
+                      '{{${{ secrets.MAIL_USERNAME }}}}',
+                      '{{${{ secrets.MAIL_PASSWORD }}}}',
+                      '{{${{ secrets.MAIL_FROM_ADDRESS }}}}'
 
     - name: Trocando versão do PHP
       uses: shivammathur/setup-php@v2

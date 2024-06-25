@@ -23,17 +23,7 @@ jobs:
       uses: richardrigutins/replace-in-files@v2
       with:
         files: '.env'
-        search-text: |
-                      {{ APP_URL }},
-                      {{ DB_HOST }},
-                      {{ DB_DATABASE }},
-                      {{ DB_USERNAME }},
-                      {{ DB_PASSWORD }},
-                      {{ MAIL_HOST }},
-                      {{ MAIL_PORT }},
-                      {{ MAIL_USERNAME }},
-                      {{ MAIL_PASSWORD }},
-                      {{ MAIL_FROM_ADDRESS }}
+        search-text: '{{ APP_URL }}'
         replacement-text: |
                       ${{ secrets.APP_URL }}, 
                       ${{ secrets.DB_HOST }}, 

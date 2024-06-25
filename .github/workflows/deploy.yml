@@ -24,17 +24,7 @@ jobs:
       with:
         files: '.env'
         search-text: '{{ APP_URL }}'
-        replacement-text: |
-                      ${{ secrets.APP_URL }}, 
-                      ${{ secrets.DB_HOST }}, 
-                      ${{ secrets.DB_DATABASE }}, 
-                      ${{ secrets.DB_USERNAME }}, 
-                      ${{ secrets.DB_PASSWORD }},
-                      ${{ secrets.MAIL_HOST }},
-                      ${{ secrets.MAIL_PORT }},
-                      ${{ secrets.MAIL_USERNAME }},
-                      ${{ secrets.MAIL_PASSWORD }},
-                      ${{ secrets.MAIL_FROM_ADDRESS }}
+        replacement-text: '${{ secrets.APP_URL }}'
 
     - name: Trocando versão do PHP
       uses: shivammathur/setup-php@v2

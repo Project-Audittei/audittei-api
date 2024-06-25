@@ -21,7 +21,7 @@ jobs:
 
     - name: Replace variables in .env file
       env:
-        SECRET_ONE: ${{ secrets.APP_URL }}
+        APP_URL: ${{ secrets.APP_URL }}
       run: |
         env_file=".env"
         if [ -f "$env_file" ]; then
@@ -35,7 +35,7 @@ jobs:
             fi
           done < "$env_file"
         fi
-        
+
     - name: Trocando versão do PHP
       uses: shivammathur/setup-php@v2
       with:

@@ -37,6 +37,9 @@ jobs:
                       ${{ secrets.MAIL_FROM_ADDRESS }}
 
     - name: Install dependencies
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.2
       run: composer install --optimize-autoloader --no-dev
 
     - name: FTP Deploy

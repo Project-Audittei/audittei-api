@@ -36,10 +36,11 @@ jobs:
                       ${{ secrets.MAIL_PASSWORD }},
                       ${{ secrets.MAIL_FROM_ADDRESS }}
 
-    - name: Install dependencies
+    - name: Trocando versão do PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: 8.2
+    - name: Instalação de dependências
       run: composer install --optimize-autoloader --no-dev
 
     - name: FTP Deploy

@@ -8,10 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
+    
     - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
     - name: Criando arquivo .env 
         run: mv .env.example .env

@@ -32,9 +32,7 @@ class UsuarioService {
             
             if(self::Salvar($usuario)) {
                 $hash = ValidacaoController::GerarCodigoValidacao($usuario, TipoCodigoValidacao::CONFIRMAR_CONTA);
-    
-                EmailController::EnviarEmailConfirmacaoConta($usuario, $hash);
-    
+                    
                 DB::commit();
     
                 return $usuario;

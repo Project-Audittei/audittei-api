@@ -12,15 +12,11 @@ use Illuminate\Support\Facades\Mail;
 class EmailController extends Controller
 {
     public static function EnviarEmailConfirmacaoConta(User $usuario, string $hash) {
-        self::_enviarEmail($usuario->email, new EmailValidacaoConta($usuario->nomeCompleto, $hash));
-        
-        return true;
+        return self::_enviarEmail($usuario->email, new EmailValidacaoConta($usuario->nomeCompleto, $hash));
     }
     
     public static function EnviarEmailResetSenha(User $usuario, string $hash) {
-        self::_enviarEmail($usuario->email, new EmailResetSenha($usuario->nomeCompleto, $hash));
-        
-        return true;
+        return self::_enviarEmail($usuario->email, new EmailResetSenha($usuario->nomeCompleto, $hash));
     }
 
 
@@ -28,7 +24,7 @@ class EmailController extends Controller
         $isDebug = env("ENVIRONMENT");
 
         if($isDebug != "debug") {
-            Mail::to($destinatario)->send($mail);
+            return Mail::to($destinatario)->send($mail);
         }
 
         return true;

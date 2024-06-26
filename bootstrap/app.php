@@ -1,8 +1,10 @@
 <?php
 
+use App\Core\ExcecaoBasica;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,5 +17,30 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (Exception $ex) {
+            if($ex instanceof ExcecaoBasica) {
+                return response(content: [
+                    'statusCode' => $ex->httpStatusCode,
+                    'data' => null,
+                    'success' => false,
+                    'message' => $ex->getMessage()
+                ], status: $ex->httpStatusCode);
+            }
+    
+            if($ex instanceof UnauthorizedHttpException) {
+                return response(content: [
+                    'statusCode' => 401,
+                    'data' => null,
+                    'success' => false,
+                    'message' => "Parece que seu token expirou... Faça login novamente."
+                ], status: 401);
+            }
+    
+            return response(content: [
+                'statusCode' => 500,
+                'data' => null,
+                'success' => false,
+                'message' => $ex->getMessage()
+            ], status: 500);
+        });
     })->create();

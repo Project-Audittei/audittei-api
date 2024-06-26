@@ -40,7 +40,8 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
         'updated_at',
         'created_at',
-        'email_verified_at'
+        'email_verified_at',
+        'pivot'
     ];
 
     /**
@@ -67,5 +68,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims() {
         return [];   
+    }
+
+    public function perfis() {
+        return $this->belongsToMany(Perfil::class, 'perfil_user', 'usuario_guid', 'perfil_guid');
     }
 }

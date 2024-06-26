@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 trait ServiceTrait {
-    public static function Salvar($entidade) {
+    private static function Salvar($entidade) {
         try {
             if( $entidade->save() ) {
                 return true;
@@ -14,11 +14,11 @@ trait ServiceTrait {
         }
     }
 
-    public static function Deletar($entidade) {
+    private static function Deletar($entidade) {
         return $entidade->delete();
     }
 
-    public static function Editar($entidade) {
+    private static function Editar($entidade) {
         try {
             if( $entidade->save() ) {
                 return true;

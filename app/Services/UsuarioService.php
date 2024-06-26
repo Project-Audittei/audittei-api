@@ -7,6 +7,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ValidacaoController;
 use App\Models\User;
 use App\Traits\ServiceTrait;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,7 +31,7 @@ class UsuarioService {
             $usuario->guid = GerarGUID();
             
             if(self::Salvar($usuario)) {
-                $hash = ValidacaoController::GerarCodigoValidacao($usuario->guid, TipoCodigoValidacao::CONFIRMAR_CONTA);
+                $hash = ValidacaoController::GerarCodigoValidacao($usuario, TipoCodigoValidacao::CONFIRMAR_CONTA);
     
                 EmailController::EnviarEmailConfirmacaoConta($usuario, $hash);
     
@@ -80,6 +81,12 @@ class UsuarioService {
 
             throw $ex;
         }
+    }
+
+    public static function ValidarConta(User $usuario) {
+        $usuario->email_verified_at = new DateTime();
+
+        return $usuario->save();
     }
 
     public static function ObterUsuarioPorGUID(string $guid) : User | null {

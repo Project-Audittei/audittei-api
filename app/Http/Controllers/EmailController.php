@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailResetSenha;
 use App\Mail\EmailValidacaoConta;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,12 @@ class EmailController extends Controller
 {
     public static function EnviarEmailConfirmacaoConta(User $usuario, string $hash) {
         self::_enviarEmail($usuario->email, new EmailValidacaoConta($usuario->nomeCompleto, $hash));
+        
+        return true;
+    }
+    
+    public static function EnviarEmailResetSenha(User $usuario, string $hash) {
+        self::_enviarEmail($usuario->email, new EmailResetSenha($usuario->nomeCompleto, $hash));
         
         return true;
     }

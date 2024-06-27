@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use ReflectionMethod;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,11 +27,13 @@ class ValidadorRequisicaoMiddleware
                 $reflection = new ReflectionMethod($controller, $method);
                 $attributes = $reflection->getAttributes(\App\Attributes\ValidarRequest::class);
     
-                if(method_exists($attributes[0]->getArguments()[0], $attributes[0]->getArguments()[1])) {
-                    $parametros = call_user_func([$attributes[0]->getArguments()[0], $attributes[0]->getArguments()[1]]);
-                    $mensagens = call_user_func([$attributes[0]->getArguments()[0], 'ValidacaoMensagens']);
-    
-                    $request->validate($parametros, $mensagens);
+                if(sizeof($attributes) > 0) {
+                    if(method_exists($attributes[0]->getArguments()[0], $attributes[0]->getArguments()[1])) {
+                        $parametros = call_user_func([$attributes[0]->getArguments()[0], $attributes[0]->getArguments()[1]]);
+                        $mensagens = call_user_func([$attributes[0]->getArguments()[0], 'ValidacaoMensagens']);
+        
+                        $request->validate($parametros, $mensagens);
+                    }
                 }
             }
         }

@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
 use GuzzleHttp\Client;
 
-trait ConsumirAPITrait {
-    private static function ObterDaAPI($url) {
+class APIClienteService
+{
+    public static function get($url)
+    {
         $config = [];
-
+    
         if(env('ENVIRONMENT') == 'debug') $config = ['verify' => false];
 
         $cliente = new Client($config);

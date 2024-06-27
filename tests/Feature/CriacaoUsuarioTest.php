@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Language\Label;
 use App\Language\MensagensValidacao;
 use App\Models\User;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -37,7 +36,7 @@ class CriacaoUsuarioTest extends TestCase
 
         $response
             ->assertStatus(500)
-            ->assertJson([ 'message' => Label::USUARIO_CADASTRO_EMAIL_EXISTENTE->value ]);
+            ->assertJson([ 'message' => MensagensValidacao::VALIDACAO_EMAIL_EXISTENTE->value ]);
     }
 
     #[TestDox("Criação de usuário com telefone já cadastrado")]
@@ -52,7 +51,7 @@ class CriacaoUsuarioTest extends TestCase
 
         $response
             ->assertStatus(500)
-            ->assertJson([ 'message' => Label::USUARIO_CADASTRO_TELEFONE_EXISTENTE->value ]);
+            ->assertJson([ 'message' => MensagensValidacao::VALIDACAO_TELEFONE_EXISTENTE->value ]);
     }
     
     #[TestDox("Criação de usuário sem nome")]

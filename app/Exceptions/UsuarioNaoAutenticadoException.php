@@ -2,9 +2,11 @@
 
 namespace App\Exceptions;
 
+use App\Language\Mensagens;
+
 class UsuarioNaoAutenticadoException extends ExcecaoBasica {
     public function __construct()
     {
-        parent::__construct("Você precisa estar autenticado para realizar esta operacação.", 401);
+        parent::__construct(Mensagens::NAO_AUTENTICADO, 401);
     }
 }

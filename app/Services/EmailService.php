@@ -19,9 +19,7 @@ class EmailService {
 
 
     private static function _enviarEmail(string $destinatario, Mailable $mail) {
-        $isDebug = env("ENVIRONMENT");
-
-        if($isDebug != "debug") {
+        if(env("ENVIRONMENT") == "production") {
             return Mail::to($destinatario)->send($mail);
         }
 

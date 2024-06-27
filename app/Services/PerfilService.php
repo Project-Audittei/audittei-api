@@ -17,6 +17,10 @@ class PerfilService {
         return $usuario->perfis()->toArray();
     }
 
+    public static function ObterPerfilPorID(string $guid) {
+        return Perfil::where('guid', $guid)->first();
+    }
+
     public static function VincularPerfilAoUsuario(Perfil $perfil, User $usuario) {
         return $perfil->usuarios()->attach($usuario);
     }

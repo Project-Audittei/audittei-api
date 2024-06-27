@@ -36,6 +36,15 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => "Parece que seu token expirou... Faça login novamente."
                 ], status: 401);
             }
+
+            if(env("ENVIRONMENT") == "debug") {
+                return response(content: [
+                    'statusCode' => 500,
+                    'data' => $ex,
+                    'success' => false,
+                    'message' => $ex->getMessage()
+                ], status: 500);
+            }
     
             return response(content: [
                 'statusCode' => 500,

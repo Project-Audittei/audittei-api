@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Attributes\ValidarRequest;
 use App\Constants\TipoCodigoValidacao;
 use App\Exceptions\UsuarioNaoEncontradoException;
-use App\Language\Label;
 use App\Language\Mensagens;
+use App\Language\MensagensValidacao;
 use App\Models\User;
 use App\Services\UsuarioService;
 use App\Services\ValidacaoService;
@@ -24,7 +24,7 @@ class UsuarioController extends Controller
         $usuario = new User($request->json()->all());
 
         if ($result = UsuarioService::SalvarUsuario($usuario)) {
-            return self::EnviarResponse($result, success: true, message: Label::USUARIO_CADASTRO_SUCESSO, statusCode: 201);
+            return self::EnviarResponse($result, success: true, message: Mensagens::USUARIO_CADASTRO_SUCESSO->value, statusCode: 201);
         }
     }
 
@@ -38,7 +38,7 @@ class UsuarioController extends Controller
         UsuarioService::ValidarConta($usuario);
         ValidacaoService::DeletarValidacao($validacao);
 
-        return self::EnviarResponse(message: Label::USUARIO_CONTA_VALIDADA->value);
+        return self::EnviarResponse(message: Mensagens::USUARIO_CONTA_VALIDADA->value);
     }
 
     #[ValidarRequest(UsuarioValidation::class, 'LoginParametros')]
@@ -47,12 +47,12 @@ class UsuarioController extends Controller
         if ($result = UsuarioService::AutenticarUsuario($request->email, $request->senha)) {
             $result['usuario'] = $request->user();
 
-            if(!$result['usuario']->email_verified_at) throw new RuntimeException(Label::USUARIO_CADASTRO_EMAIL_NAO_VERIFICADO->value);
+            if(!$result['usuario']->email_verified_at) throw new RuntimeException(MensagensValidacao::VALIDACAO_EMAIL_NAO_VERIFICADO->value);
 
-            return self::EnviarResponse($result, success: true, message: Label::USUARIO_LOGIN_SUCESSO->value);
+            return self::EnviarResponse($result, success: true, message: Mensagens::USUARIO_LOGIN_SUCESSO->value);
         }
 
-        return self::EnviarResponse($result, success: false, message: Label::USUARIO_LOGIN_ERRO->value, statusCode: 401);
+        return self::EnviarResponse($result, success: false, message: Mensagens::USUARIO_LOGIN_ERRO->value, statusCode: 401);
     }
 
     #[ValidarRequest(UsuarioValidation::class, 'RecuperarSenhaParametros')]
@@ -75,7 +75,7 @@ class UsuarioController extends Controller
             return self::EnviarResponse(message: Mensagens::SENHA_ALTERADA_SUCESSO->value);
         }
         
-        return self::EnviarResponse( statusCode: 500, message: Label::USUARIO_SENHA_ALTERADA_ERRO->value);     
+        return self::EnviarResponse( statusCode: 500, message: Mensagens::USUARIO_SENHA_ALTERADA_ERRO->value);     
     }
 
     public static function ObterDadosUsuario(Request $request) {

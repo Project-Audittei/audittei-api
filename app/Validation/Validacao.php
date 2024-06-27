@@ -59,37 +59,37 @@ abstract class Validacao implements IValidacaoRequest {
             'hash.max' => MensagensValidacao::VALIDACAO_HASH_MINMAX->value,
 
             //razaoSocial
-            'razaoSocial.required' => 'A razão social deve ser preenchida.',
+            'razaoSocial.required' => MensagensValidacao::VALIDACAO_RAZAO_SOCIAL_OBRIGATORIO->value,
 
             //cnpj
-            'cnpj.required' => 'O CNPJ deve ser preenchido.',
-            'cnpj.min' => 'O CNPJ deve conter ao menos :min caracteres.',
-            'cnpj.max' => 'O CNPJ deve conter no máximo :max caracteres.',
+            'cnpj.required' => MensagensValidacao::VALIDACAO_CNPJ_OBRIGATORIO->value,
+            'cnpj.min' => MensagensValidacao::VALIDACAO_CNPJ_MIN->value,
+            'cnpj.max' => MensagensValidacao::VALIDACAO_CNPJ_MAX->value,
 
             //CEP
-            'cep.required' => 'O CEP é obrigatório',
-            'cep.min' => 'O CEP deve conter 6 caracteres',
-            'cep.max' => 'O CEP deve conter 6 caracteres',
+            'cep.required' => MensagensValidacao::VALIDACAO_CEP_OBRIGATORIO->value,
+            'cep.min' => MensagensValidacao::VALIDACAO_CEP_MINMAX->value,
+            'cep.max' => MensagensValidacao::VALIDACAO_CEP_MINMAX->value,
 
             //Logadouro
-            'logadouro.required' => 'O logadouro é obrigatório',
-            'logadouro.min' => 'O logadouro deve conter 6 caracteres',
-            'logadouro.max' => 'O logadouro deve conter 6 caracteres',
+            'logadouro.required' => MensagensValidacao::VALIDACAO_LOGRADOURO_OBRIGATORIO->value,
+            'logadouro.min' => MensagensValidacao::VALIDACAO_LOGRADOURO_MINMAX->value,
+            'logadouro.max' => MensagensValidacao::VALIDACAO_LOGRADOURO_MINMAX->value,
 
             //Bairro
-            'bairro.required' => 'O bairro é obrigatório',
-            'bairro.min' => 'O bairro deve conter 6 caracteres',
-            'bairro.max' => 'O bairro deve conter 6 caracteres',
+            'bairro.required' => MensagensValidacao::VALIDACAO_BAIRRO_OBRIGATORIO->value,
+            'bairro.min' => MensagensValidacao::VALIDACAO_BAIRRO_MINMAX->value,
+            'bairro.max' => MensagensValidacao::VALIDACAO_BAIRRO_MINMAX->value,
 
             //Cidade
-            'cidade.required' => 'O cidade é obrigatório',
-            'cidade.min' => 'O cidade deve conter 6 caracteres',
-            'cidade.max' => 'O cidade deve conter 6 caracteres',
+            'cidade.required' => MensagensValidacao::VALIDACAO_CIDADE_OBRIGATORIO->value,
+            'cidade.min' => MensagensValidacao::VALIDACAO_CIDADE_MINMAX->value,
+            'cidade.max' => MensagensValidacao::VALIDACAO_CIDADE_MINMAX->value,
 
             //Estado
-            'estado.required' => 'O estado é obrigatório',
-            'estado.min' => 'O estado deve conter 6 caracteres',
-            'estado.max' => 'O estado deve conter 6 caracteres',
+            'estado.required' => MensagensValidacao::VALIDACAO_ESTADO_OBRIGATORIO->value,
+            'estado.min' => MensagensValidacao::VALIDACAO_ESTADO_MINMAX->value,
+            'estado.max' => MensagensValidacao::VALIDACAO_ESTADO_MINMAX->value,
         ];
     } 
 }

@@ -3,14 +3,14 @@
 namespace App\Traits;
 
 use App\Exceptions\ExcecaoBasica;
-use App\Language\Label;
+use App\Language\Mensagens;
 
 trait ServiceTrait {
     private static function Salvar($entidade) {
         try {
             if( $entidade->save() ) {
                 return true;
-            } throw new ExcecaoBasica(Label::GENERICO_ERRO_SALVAR_ENTIDADE);
+            } throw new ExcecaoBasica(Mensagens::GENERICO_ERRO_SALVAR_ENTIDADE);
             
         } catch (\Exception $ex) {
             throw $ex;
@@ -25,7 +25,7 @@ trait ServiceTrait {
         try {
             if( $entidade->save() ) {
                 return true;
-            } throw new ExcecaoBasica(Label::GENERICO_ERRO_EDITAR_ENTIDADE);
+            } throw new ExcecaoBasica(Mensagens::GENERICO_ERRO_EDITAR_ENTIDADE);
             
         } catch (\Exception $ex) {
             throw $ex;

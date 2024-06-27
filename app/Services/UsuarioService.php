@@ -8,6 +8,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ValidacaoController;
 use App\Labels\UsuarioLabels;
 use App\Language\Label;
+use App\Language\MensagensValidacao;
 use App\Models\User;
 use App\Traits\ServiceTrait;
 use DateTime;
@@ -24,11 +25,11 @@ class UsuarioService {
             DB::beginTransaction();
 
             if(self::ObterUsuarioPorEmail($usuario['email'])) {
-                throw new ExcecaoBasica(Label::USUARIO_CADASTRO_EMAIL_EXISTENTE);
+                throw new ExcecaoBasica(MensagensValidacao::VALIDACAO_EMAIL_EXISTENTE);
             }
 
             if(self::ObterUsuarioPorTelefone($usuario['telefone'])) {
-                throw new ExcecaoBasica(Label::USUARIO_CADASTRO_TELEFONE_EXISTENTE);
+                throw new ExcecaoBasica(MensagensValidacao::VALIDACAO_TELEFONE_EXISTENTE);
             }
 
             $usuario->guid = GerarGUID();

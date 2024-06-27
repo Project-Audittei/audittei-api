@@ -30,6 +30,6 @@ class EnviarEmailTrocaSenhaTest extends TestCase
 
         $response
             ->assertStatus(404)
-            ->assertJson([ 'message' => Mensagens::BUSCA_USUARIO_POR_EMAIL_NAO_ENCONTRADO->value ]);
+            ->assertJson([ 'message' => Mensagens::NAO_ENCONTRADO_USUARIO->value ]);
     }
 }

@@ -1,66 +1,92 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="http://auditteifront.ofernandoavila.com/assets/images/logo.svg" width="300" alt="Laravel Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white" alt="Ubuntu">
+<img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens" alt="JWT">
+<img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+<img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
 </p>
 
-## About Laravel
+# Configurações iniciais
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Produção e Homologação
+- PHP 8.2 ou acima
+- Composer
+- MySQL 8
+- Apache 2
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Local
+- PHP 8.2 ou acima
+- Composer
+- MySQL 8
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Testes
 
-## Learning Laravel
+## Configuração de ambiente
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 01 - Criação do Banco de Dados
+O primeiro passo para definir o ambiente de testes, é começar criando um banco de dados para realizar todas as operações de testes. Por conveção, dê o nome de ```audittei_tests``` para sinalizar que se trata de um banco de dados de testes.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 02 - Variáveis de ambiente
+Em seguida, clone o arquivo ```.env``` e coloque o nome ```.env.testing```.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Troque o valor da variável ```DB_NAME``` para o nome do banco de testes ```audittei_tests``` 
 
-## Laravel Sponsors
+### 03 - Migrar banco
+Rode o comando para migrar o banco para as configurações de testes
+```
+php artisan migrate --env=testing
+```
+### 04 - Instalar seeds no banco
+Após rodar o comando em seu terminal, certifique-se de que todas as seeds rodaram e os dados iniciais já se encontram no banco:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+php artisan db:seed --env=testing
+```
 
-### Premium Partners
+Após seguir todos os passos, seu ambiente já está configurado para trabalhar com testes desta aplicação.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+## Escrevendo testes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 01 - Gerar arquivo de testes
+Para gerar um arquivo de testes, basta rodar o seguinte comando em seu terminal.
 
-## Code of Conduct
+**IMPORTANTE**
+- Por convenção, **TODOS** os testes devem terminar com o sufixo ```Test```.
+- Os tipos de testes disponíveis são ```Unit``` e ```Feature```.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+php artisan make:test NomeDoTesteTest [ --unit] | [ --feature]
+```
 
-## Security Vulnerabilities
+### 02 - Criando um teste
+Para começar, o nome do teste deve ser definido através de uma anotação do tipo ```Testdox``` onde deve ser claro e indicar a ação de teste, seguindo o exemplo abaixo:
+```php
+#[TestDox('Checar se é verdadeiro')]
+public function test_foo(): void {
+    $bar = true;
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    $this->assertTrue($bar);
+}
+```
 
-## License
+### 03 - Definir o teste
+Para definir um teste, a função a ser testada deve iniciar por convenção com o prefixo ```test_[nome_do_teste]``` e retornar ```void```, seguindo o exemplo abaixo:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```php
+#[TestDox('Checar se é verdadeiro')]
+public function test_checar_se_eh_verdadeiro(): void {
+    $bar = true;
+
+    $this->assertTrue($bar);
+}
+```
+
+### 04 - Rodar o teste
+Para rodar o teste, basta digitar no terminal o comando:
+```
+php artisan test [--unit] | [--feature]
+```
+
+**Notas:** Para um resultado mais detalhado dos testes, certifique-se de usar a flag ```--testdox``` para exibir os testes com os nomes.

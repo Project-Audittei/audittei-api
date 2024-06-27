@@ -17,7 +17,7 @@ class ValidationControl extends Model
         'guid_usuario',
         'hash_validacao',
         'tipo',
-        'validation_validate'
+        'expires'
     ];
 
     protected $casts = [

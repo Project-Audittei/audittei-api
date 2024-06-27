@@ -2,8 +2,6 @@
 
 namespace App\Exceptions;
 
-use App\Core\ExcecaoBasica;
-
 class UsuarioNaoAutenticadoException extends ExcecaoBasica {
     public function __construct()
     {

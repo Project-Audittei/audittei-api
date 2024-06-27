@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 
 trait ConsumirAPITrait {
     private static function ObterDaAPI($url) {

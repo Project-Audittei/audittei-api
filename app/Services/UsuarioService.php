@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\Constants\TipoCodigoValidacao;
+use App\Exceptions\ExcecaoBasica;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ValidacaoController;
+use App\Labels\UsuarioLabels;
+use App\Language\Label;
 use App\Models\User;
 use App\Traits\ServiceTrait;
 use DateTime;
@@ -21,17 +24,17 @@ class UsuarioService {
             DB::beginTransaction();
 
             if(self::ObterUsuarioPorEmail($usuario['email'])) {
-                throw new \Exception("Email já cadastrado.");
+                throw new ExcecaoBasica(Label::USUARIO_CADASTRO_EMAIL_EXISTENTE);
             }
 
             if(self::ObterUsuarioPorTelefone($usuario['telefone'])) {
-                throw new \Exception("Telefone já cadastrado.");
+                throw new ExcecaoBasica(Label::USUARIO_CADASTRO_TELEFONE_EXISTENTE);
             }
 
             $usuario->guid = GerarGUID();
             
             if(self::Salvar($usuario)) {
-                $hash = ValidacaoController::GerarCodigoValidacao($usuario, TipoCodigoValidacao::CONFIRMAR_CONTA);
+                ValidacaoService::GerarCodigoValidacao($usuario, TipoCodigoValidacao::CONFIRMAR_CONTA);
                     
                 DB::commit();
     
@@ -63,7 +66,7 @@ class UsuarioService {
         try {
             DB::beginTransaction();
 
-            $validacao = ValidacaoController::ObterValidacao($hash, TipoCodigoValidacao::REDEFINIR_SENHA);
+            $validacao = ValidacaoService::ObterValidacao($hash, TipoCodigoValidacao::REDEFINIR_SENHA);
 
             $usuario = self::ObterUsuarioPorGuid($validacao->guid_usuario);
             $usuario->senha = Hash::make($senha);

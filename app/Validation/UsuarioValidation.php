@@ -2,40 +2,42 @@
 
 namespace App\Validation;
 
-use App\Interfaces\IValidationParams;
+use App\Interfaces\IValidacaoRequest;
+use App\Language\MensagensValidacao;
 
-class UsuarioValidation implements IValidationParams {
-    public static function ValidationParams(): array {
+class UsuarioValidation extends Validacao {
+    public static function CadastroParametros(): array {
         return [
-            //nome
-            'nome.required' => 'O nome deve ser preenchido.',
+            'nomeCompleto' => self::ObterParametro('nomeCompleto'),
+            'telefone' => self::ObterParametro('telefone'),
+            'email' => self::ObterParametro('email'),
+            'senha' => self::ObterParametro('senha'),
+        ];
+    }
 
-            //sobrenome
-            'sobrenome.required' => 'O sobrenome deve ser preenchido.',
+    public static function ConfirmarContaParametros() : array {
+        return [
+            'hash' => self::ObterParametro('hash')
+        ];
+    }
 
-            //email
-            'email.required' => 'O email deve ser preenchido.',
-            'email.email' => 'E-mail inválido.',
+    public static function LoginParametros() : array {
+        return [
+            'email' => self::ObterParametro('email'),
+            'senha' => self::ObterParametro('senha'),
+        ];
+    }
 
-            //cpf
-            'cpf.required' => 'O CPF deve ser preenchido.',
-            'cpf.min' => 'O CPF deve conter ao menos :min caracteres.',
-            'cpf.max' => 'O CPF deve conter no máximo :max caracteres.',
+    public static function RecuperarSenhaParametros() : array {
+        return [
+            'email' => self::ObterParametro('email'),
+        ];
+    }
 
-            //telefone
-            'telefone.required' => 'O telefone deve ser preenchido.',
-            'telefone.min' => 'O telefone deve conter ao menos :min caracteres.',
-            'telefone.max' => 'O telefone deve conter no máximo :max caracteres.',
-
-            //senha
-            'senha.required' => 'A senha deve ser preenchida.',
-            'senha.min' => 'A senha deve conter ao menos :min caracteres.',
-            'senha.max' => 'A senha deve conter no máximo :max caracteres.',
-
-            //hash
-            'hash.required' => 'O hash é obrigatório',
-            'hash.min' => 'O hash deve conter 6 caracteres',
-            'hash.max' => 'O hash deve conter 6 caracteres'
+    public static function RedefinirSenhaParametros() : array {
+        return [
+            'hash' => self::ObterParametro('hash'),
+            'senha' => self::ObterParametro('senha'),
         ];
     }
 }

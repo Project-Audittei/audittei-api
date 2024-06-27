@@ -1,6 +1,7 @@
 <?php
 
-use App\Core\ExcecaoBasica;
+use App\Exceptions\ExcecaoBasica;
+use App\Http\Middleware\ValidadorRequisicaoMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->appendToGroup('api', [ValidadorRequisicaoMiddleware::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Exception $ex) {

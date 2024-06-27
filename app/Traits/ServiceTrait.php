@@ -2,12 +2,15 @@
 
 namespace App\Traits;
 
+use App\Exceptions\ExcecaoBasica;
+use App\Language\Label;
+
 trait ServiceTrait {
     private static function Salvar($entidade) {
         try {
             if( $entidade->save() ) {
                 return true;
-            } throw new \Exception("Não foi possível salvar a entidade.");
+            } throw new ExcecaoBasica(Label::GENERICO_ERRO_SALVAR_ENTIDADE);
             
         } catch (\Exception $ex) {
             throw $ex;
@@ -22,7 +25,7 @@ trait ServiceTrait {
         try {
             if( $entidade->save() ) {
                 return true;
-            } throw new \Exception("Não foi possível editar a entidade.");
+            } throw new ExcecaoBasica(Label::GENERICO_ERRO_EDITAR_ENTIDADE);
             
         } catch (\Exception $ex) {
             throw $ex;

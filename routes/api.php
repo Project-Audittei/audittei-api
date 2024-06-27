@@ -1,31 +1,18 @@
 <?php
 
-use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\UsuarioController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use function App\Helpers\EnviarResponse;
-use function App\Helpers\GerarGUID;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\UsuarioController;
 
 Route::get('/api-info', function () {
     return response()->json([
-        'version' => '1.0.0',
+        'version' => env('APP_VERSION'),
+        'last_commit' => env('APP_LAST_COMMIT'),
+        'last_build' => env('APP_LAST_BUILD'),
+        'build_number' => env('BUILD_NUMBER'),
         'status' => 'Running'
     ]);
-});
-
-Route::get('/guid', function(Request $request) {
-    return EnviarResponse(
-        content: [ 'guid' => GerarGUID() ]
-    );
-});
-
-Route::get('/usuario/obterDados', function(Request $request) {
-    return EnviarResponse(
-        content: $request->user(),
-        message: 'Consulta realizada com sucesso.'
-    );
 });
 
 Route::middleware(['jwt.auth'])->group(function() {
@@ -33,6 +20,8 @@ Route::middleware(['jwt.auth'])->group(function() {
     Route::post('/perfil/cadastro', [ PerfilController::class, 'CadastrarPerfil' ]);
     Route::get('/perfil', [ PerfilController::class, 'ObterPerfisUsuario' ]);
     Route::get('/perfil/usuarios', [ PerfilController::class, 'ObterUsuariosDoPerfil' ]);
+
+    Route::get('/usuario', [ UsuarioController::class, 'ObterDadosUsuario' ]);
 });
 
 Route::post('/auth/cadastro', [ UsuarioController::class, 'CadastrarUsuario' ]);

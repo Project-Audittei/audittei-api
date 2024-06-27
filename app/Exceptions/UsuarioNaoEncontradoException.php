@@ -2,11 +2,12 @@
 
 namespace App\Exceptions;
 
-use App\Core\ExcecaoBasica;
+use App\Language\Mensagens;
+use App\Language\MensagensValidacao;
 
 class UsuarioNaoEncontradoException extends ExcecaoBasica {
     public function __construct()
     {
-        parent::__construct("Usuário não encontrado com os dados fornecidos.", 404);
+        parent::__construct(Mensagens::BUSCA_USUARIO_POR_EMAIL_NAO_ENCONTRADO, 404);
     }
 }

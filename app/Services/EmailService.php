@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
 use App\Mail\EmailResetSenha;
 use App\Mail\EmailValidacaoConta;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
 
-class EmailController extends Controller
-{
+class EmailService {
     public static function EnviarEmailConfirmacaoConta(User $usuario, string $hash) {
         return self::_enviarEmail($usuario->email, new EmailValidacaoConta($usuario->nomeCompleto, $hash));
     }

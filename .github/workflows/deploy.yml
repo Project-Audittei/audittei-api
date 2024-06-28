@@ -39,19 +39,18 @@ jobs:
           name: audittei-api
           path: ./artifact
 
-      - name: Definindo versão
-        run: |
-          if [ $# -eq 0 ]; then
-            echo "Uso: $0 <arquivo.yml>"
-            exit 1
-          fi
-          if [ ! -f "$1" ]; then
-            echo "Arquivo $1 não encontrado."
-            exit 1
-          fi
-          next_version=$(jq -r '.["next-version"]' "$1")
-          echo "APP_VERSION=$next_version" >> $GITHUB_ENV
+      - name: Instalar GitVersion
+        uses: gittools/actions/gitversion/setup@v1.1.1
 
+      - name: Obter próxima versão
+        id: get_next_version
+        run: |
+          gitversion gitversion.yml /outputformat json > gitversion.json
+          echo "::set-output name=next_version::$(jq -r '.NextVersion' gitversion.json)"
+
+      - name: Definindo versão
+        run: echo "NEXT_VERSION=${{ steps.get_next_version.outputs.next_version }}" >> $GITHUB_ENV
+  
       - name: Definindo Variáveis de ambiente
         env:
             APP_VERSION: ${{ env.APP_VERSION }}

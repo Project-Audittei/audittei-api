@@ -46,20 +46,20 @@ jobs:
   
       - name: Definindo Variáveis de ambiente
         run: |
-          sed -i "s/{{ APP_NAME }}/${{ vars.APP_NAME }}/g" ./artifact/.env
-          sed -i "s/{{ APP_URL }}/${{ secrets.APP_URL }}/g" ./artifact/.env
-          sed -i "s/{{ APP_VERSION }}/${{ env.APP_VERSION }}/g" ./artifact/.env
-          sed -i "s/{{ ENVIRONMENT }}/${{ vars.ENVIRONMENT }}/g" ./artifact/.env
-          sed -i "s/{{ DB_HOST }}/${{ secrets.DB_HOST }}/g" ./artifact/.env
-          sed -i "s/{{ DB_DATABASE }}/${{ secrets.DB_DATABASE }}/g" ./artifact/.env
-          sed -i "s/{{ DB_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./artifact/.env
-          sed -i "s/{{ DB_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./artifact/.env
-          sed -i "s/{{ MAIL_HOST }}/${{ secrets.MAIL_HOST }}/g" ./artifact/.env
-          sed -i "s/{{ MAIL_PORT }}/${{ secrets.MAIL_PORT }}/g" ./artifact/.env
-          sed -i "s/{{ MAIL_USERNAME }}/${{ secrets.MAIL_USERNAME }}/g" ./artifact/.env
-          sed -i "s/{{ MAIL_PASSWORD }}/${{ secrets.MAIL_PASSWORD }}/g" ./artifact/.env
-          sed -i "s/{{ MAIL_FROM_ADDRESS }}/${{ secrets.MAIL_FROM_ADDRESS }}/g" ./artifact/.env
-          sed -i "s/{{ CNPJ_API_KEY }}/${{ secrets.CNPJ_API_KEY }}/g" ./artifact/.env
+          awk '{gsub(/\{\{ APP_NAME \}\}/, "${{ vars.APP_NAME }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ APP_URL \}\}/, "${{ secrets.APP_URL }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ APP_VERSION \}\}/, "${{ env.APP_VERSION }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ ENVIRONMENT \}\}/, "${{ vars.ENVIRONMENT }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ DB_HOST \}\}/, "${{ secrets.DB_HOST }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ DB_DATABASE \}\}/, "${{ secrets.DB_DATABASE }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ DB_USERNAME \}\}/, "${{ secrets.DB_USERNAME }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ DB_PASSWORD \}\}/, "${{ secrets.DB_PASSWORD }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ MAIL_HOST \}\}/, "${{ secrets.MAIL_HOST }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ MAIL_PORT \}\}/, "${{ secrets.MAIL_PORT }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ MAIL_USERNAME \}\}/, "${{ secrets.MAIL_USERNAME }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ MAIL_PASSWORD \}\}/, "${{ secrets.MAIL_PASSWORD }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ MAIL_FROM_ADDRESS \}\}/, "${{ secrets.MAIL_FROM_ADDRESS }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
+          awk '{gsub(/\{\{ CNPJ_API_KEY \}\}/, "${{ secrets.CNPJ_API_KEY }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
       
       - name: Deploy
         uses: easingthemes/ssh-deploy@main

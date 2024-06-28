@@ -79,7 +79,7 @@ jobs:
             user: ${{ vars.REMOTE_USER }}
             command: |
                 cd auditteiapi.ofernandoavila.com/
-                composer install --no-dev --no-progress -a
+                /opt/cpanel/composer/bin/composer install --no-dev --no-progress -a
                 php artisan jwt:secret
                 php artisan migrate
                 php artisan optimize

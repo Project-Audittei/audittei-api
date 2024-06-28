@@ -18,7 +18,7 @@ jobs:
       - name: Preparando artefato
         run: |
           mkdir -p artifact
-          rsync -av --exclude='artefact' --exclude='.git' --exclude='.github' ./ ./artefact/
+          rsync -a --exclude='artifact' --exclude='.git' --exclude='.github' ./ ./artifact/
 
       - name: Salvando artefato
         uses: actions/upload-artifact@v4

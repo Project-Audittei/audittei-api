@@ -42,7 +42,7 @@ jobs:
       - name: Definindo versão
         run: |
           next_version=$(sed -n '2p' ./artifact/gitversion.yml | awk -F ': ' '/next_version/ {print $2}') 
-          echo "NEXT_VERSION=$next_version" >> $GITHUB_ENV
+          echo "APP_VERSION=$next_version" >> $GITHUB_ENV
   
       - name: Definindo Variáveis de ambiente
         env:

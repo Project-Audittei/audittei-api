@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
 use App\Exceptions\ExcecaoBasica;
 use App\Language\Mensagens;
 
-trait ServiceTrait {
-    private static function Salvar($entidade) {
+abstract class Service {
+    protected static function Salvar($entidade) {
         try {
             if( $entidade->save() ) {
                 return true;
@@ -17,11 +17,11 @@ trait ServiceTrait {
         }
     }
 
-    private static function Deletar($entidade) {
+    protected static function Deletar($entidade) {
         return $entidade->delete();
     }
 
-    private static function Editar($entidade) {
+    protected static function Editar($entidade) {
         try {
             if( $entidade->save() ) {
                 return true;

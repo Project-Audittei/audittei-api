@@ -2,10 +2,9 @@
 
 namespace App\Validation;
 
-use App\Interfaces\IValidacaoRequest;
 use App\Language\MensagensValidacao;
 
-abstract class Validacao implements IValidacaoRequest {
+abstract class Validacao {
     public static array $parametros = [
         'cnpj' => 'required',
         'razaoSocial' => 'required',

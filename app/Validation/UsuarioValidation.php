@@ -2,9 +2,6 @@
 
 namespace App\Validation;
 
-use App\Interfaces\IValidacaoRequest;
-use App\Language\MensagensValidacao;
-
 class UsuarioValidation extends Validacao {
     public static function CadastroParametros(): array {
         return [

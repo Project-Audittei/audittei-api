@@ -17,8 +17,6 @@ use RuntimeException;
 
 class UsuarioController extends Controller
 {
-    use EnviarResponseTrait;
-
     #[ValidarRequest(UsuarioValidation::class, 'CadastroParametros')]
     public static function CadastrarUsuario(Request $request) {
         $usuario = new User($request->json()->all());

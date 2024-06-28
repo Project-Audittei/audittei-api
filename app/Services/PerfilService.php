@@ -4,11 +4,8 @@ namespace App\Services;
 
 use App\Models\Perfil;
 use App\Models\User;
-use App\Traits\ServiceTrait;
 
-class PerfilService {
-    use ServiceTrait;
-
+class PerfilService extends Service {
     public static function SalvarPerfil(Perfil $perfil) {
         return self::Salvar($perfil);
     }

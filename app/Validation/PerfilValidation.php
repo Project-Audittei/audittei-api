@@ -2,9 +2,6 @@
 
 namespace App\Validation;
 
-use App\Interfaces\IValidacaoRequest;
-use App\Interfaces\IValidationParams;
-
 class PerfilValidation extends Validacao {    
     public static function CadastroParametros() {
         return [

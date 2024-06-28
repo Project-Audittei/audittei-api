@@ -16,8 +16,6 @@ use function App\Helpers\GerarGUID;
 
 class PerfilController extends Controller
 {
-    use EnviarResponseTrait;
-
     #[ValidarRequest(PerfilValidation::class, 'CadastroParametros')]
     public static function CadastrarPerfil(Request $request)
     {

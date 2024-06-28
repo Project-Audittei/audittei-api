@@ -4,22 +4,15 @@ namespace App\Services;
 
 use App\Constants\TipoCodigoValidacao;
 use App\Exceptions\ExcecaoBasica;
-use App\Http\Controllers\EmailController;
-use App\Http\Controllers\ValidacaoController;
-use App\Labels\UsuarioLabels;
-use App\Language\Label;
 use App\Language\MensagensValidacao;
 use App\Models\User;
-use App\Traits\ServiceTrait;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 use function App\Helpers\GerarGUID;
 
-class UsuarioService {
-    use ServiceTrait;
-
+class UsuarioService extends Service {
     public static function SalvarUsuario(User $usuario) {
         try {
             DB::beginTransaction();

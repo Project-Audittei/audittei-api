@@ -70,3 +70,15 @@ jobs:
           REMOTE_USER: ${{ vars.REMOTE_USER }}
           SOURCE: "artifact/"
           TARGET: ${{ vars.TARGET }}
+
+      - name: Instalação da aplicação
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.REMOTE_HOST }}
+          username: ${{ vars.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            composer install --no-dev --no-progress -a
+            php artisan optimize
+            chown -R www-data:www-data .
+            php artisan migrate

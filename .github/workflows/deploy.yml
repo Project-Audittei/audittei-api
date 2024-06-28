@@ -41,6 +41,8 @@ jobs:
 
       - name: Instalar GitVersion
         uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: '5.x'
 
       - name: Obter próxima versão
         id: get_next_version

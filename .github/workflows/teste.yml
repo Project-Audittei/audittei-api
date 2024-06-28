@@ -17,7 +17,4 @@ jobs:
             key: ${{ secrets.SERVER_SSH_KEY }}
             user: ${{ vars.REMOTE_USER }}
             command: |
-                composer install --no-dev --no-progress -a
-                php artisan optimize
-                chown -R www-data:www-data .
-                php artisan migrate
+                composer --version

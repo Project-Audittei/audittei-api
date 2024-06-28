@@ -39,19 +39,10 @@ jobs:
           name: audittei-api
           path: ./artifact
 
-      - name: Instalar GitVersion
-        uses: gittools/actions/gitversion/setup@v1.1.1
-        with:
-          versionSpec: '5.x'
-
-      - name: Obter próxima versão
-        id: get_next_version
-        run: |
-          gitversion gitversion.yml /outputformat json > gitversion.json
-          echo "::set-output name=next_version::$(jq -r '.NextVersion' gitversion.json)"
-
       - name: Definindo versão
-        run: echo "NEXT_VERSION=${{ steps.get_next_version.outputs.next_version }}" >> $GITHUB_ENV
+        run: |
+          next_version=$(sed -n '2p' ./artifact/gitversion.yml | awk -F ': ' '/next_version/ {print $2}') 
+          echo "NEXT_VERSION=$next_version" >> $GITHUB_ENV
   
       - name: Definindo Variáveis de ambiente
         env:

@@ -1,7 +1,7 @@
 name: Deploy
 
 on:
-  pull_request: 
+  push: 
     branches: [master]
   workflow_dispatch:
     
@@ -38,17 +38,11 @@ jobs:
         with:
           name: audittei-api
           path: ./artifact
-
-      - name: Definindo versão
-        run: |
-          next_version=$(sed -n '2p' ./artifact/gitversion.yml | awk -F ': ' '/next_version/ {print $2}') 
-          echo "APP_VERSION=$next_version" >> $GITHUB_ENV
   
       - name: Definindo Variáveis de ambiente
         run: |
           awk '{gsub(/\{\{ APP_NAME \}\}/, "${{ vars.APP_NAME }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
           awk '{gsub(/\{\{ APP_URL \}\}/, "${{ secrets.APP_URL }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
-          awk '{gsub(/\{\{ APP_VERSION \}\}/, "${{ env.APP_VERSION }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
           awk '{gsub(/\{\{ ENVIRONMENT \}\}/, "${{ vars.ENVIRONMENT }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
           awk '{gsub(/\{\{ DB_HOST \}\}/, "${{ secrets.DB_HOST }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
           awk '{gsub(/\{\{ DB_DATABASE \}\}/, "${{ secrets.DB_DATABASE }}"); print}' ./artifact/.env > temp && mv temp ./artifact/.env
@@ -83,3 +77,4 @@ jobs:
                 php artisan jwt:secret
                 php artisan migrate
                 php artisan optimize
+                php artisan config:clear

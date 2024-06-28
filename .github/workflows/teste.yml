@@ -10,11 +10,11 @@ jobs:
         name: Staging
         url: ${{ vars.BASE_URL }}
     steps:
-      - name: Instalação da aplicação
-        uses: nekiro/ssh-job@main
-        with:
+        - name: executing remote ssh commands using ssh key
+          uses: appleboy/ssh-action@v1.0.3
+          with:
             host: ${{ vars.REMOTE_HOST }}
+            username: ${{ vars.REMOTE_USER }}
             key: ${{ secrets.SERVER_SSH_KEY }}
-            user: ${{ vars.REMOTE_USER }}
-            command: |
-                composer --version
+            port: 22
+            script: composer --version

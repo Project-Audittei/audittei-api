@@ -18,7 +18,7 @@ jobs:
       - name: Preparando artefato
         run: |
           mkdir -p artifact
-          cp -r * artifact/ --exclude artifact
+          cp -r *(!artifact/) artifact/
 
       - name: Salvando artefato
         uses: actions/upload-artifact@v4

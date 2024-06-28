@@ -3,9 +3,10 @@ name: Deploy
 on:
   push:
     branches: [master]
-
+  workflow_dispatch:
+    
 jobs:
-  PreparandoArtefato:
+  PreparacaoArtefato:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,3 +25,58 @@ jobs:
         with:
           name: audittei-api
           path: artifact
+
+  HML:
+    runs-on: ubuntu-latest
+    environment:
+        name: Staging
+        url: ${{ vars.BASE_URL }}
+    needs: PreparacaoArtefato
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: audittei-front
+          path: ./artifact
+
+      - name: Definindo versão
+        run: |
+          if [ $# -eq 0 ]; then
+            echo "Uso: $0 <arquivo.yml>"
+            exit 1
+          fi
+          if [ ! -f "$1" ]; then
+            echo "Arquivo $1 não encontrado."
+            exit 1
+          fi
+          next_version=$(jq -r '.["next-version"]' "$1")
+          echo "APP_VERSION=$next_version" >> $GITHUB_ENV
+
+      - name: Definindo Variáveis de ambiente
+        env:
+            APP_VERSION: ${{ env.APP_VERSION }}
+        run: |
+          sed -i "s/{{ APP_NAME }}/${{ vars.APP_NAME }}/g" ./artifact/.env
+          sed -i "s/{{ APP_URL }}/${{ secrets.APP_URL }}/g" ./artifact/.env
+          sed -i "s/{{ APP_VERSION }}/${{ env.APP_VERSION }}/g" ./artifact/.env
+          sed -i "s/{{ ENVIRONMENT }}/${{ vars.ENVIRONMENT }}/g" ./artifact/.env
+          sed -i "s/{{ DB_HOST }}/${{ secrets.DB_HOST }}/g" ./artifact/.env
+          sed -i "s/{{ DB_DATABASE }}/${{ secrets.DB_DATABASE }}/g" ./artifact/.env
+          sed -i "s/{{ DB_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./artifact/.env
+          sed -i "s/{{ DB_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./artifact/.env
+          sed -i "s/{{ MAIL_HOST }}/${{ secrets.MAIL_HOST }}/g" ./artifact/.env
+          sed -i "s/{{ MAIL_PORT }}/${{ secrets.MAIL_PORT }}/g" ./artifact/.env
+          sed -i "s/{{ MAIL_USERNAME }}/${{ secrets.MAIL_USERNAME }}/g" ./artifact/.env
+          sed -i "s/{{ MAIL_PASSWORD }}/${{ secrets.MAIL_PASSWORD }}/g" ./artifact/.env
+          sed -i "s/{{ MAIL_FROM_ADDRESS }}/${{ secrets.MAIL_FROM_ADDRESS }}/g" ./artifact/.env
+          sed -i "s/{{ CNPJ_API_KEY }}/${{ secrets.CNPJ_API_KEY }}/g" ./artifact/.env
+      
+      - name: Deploy
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rlgoDzvc --delete"
+          REMOTE_HOST: ${{ vars.REMOTE_HOST }}
+          REMOTE_USER: ${{ vars.REMOTE_USER }}
+          SOURCE: "artifact/"
+          TARGET: ${{ vars.TARGET }}

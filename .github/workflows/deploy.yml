@@ -45,8 +45,6 @@ jobs:
           echo "APP_VERSION=$next_version" >> $GITHUB_ENV
   
       - name: Definindo Variáveis de ambiente
-        env:
-            APP_VERSION: ${{ env.APP_VERSION }}
         run: |
           sed -i "s/{{ APP_NAME }}/${{ vars.APP_NAME }}/g" ./artifact/.env
           sed -i "s/{{ APP_URL }}/${{ secrets.APP_URL }}/g" ./artifact/.env

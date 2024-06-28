@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\ValidationControl;
 
 class ValidacaoService {
-    public static function GerarCodigoValidacao(User $usuario, TipoCodigoValidacao $tipo) : string {
+    public static function GerarCodigoValidacao(User $usuario, TipoCodigoValidacao $tipo) {
         $validacao = ValidationControl::where('guid_usuario', $usuario->guid)
                                         ->where('tipo', $tipo)
                                         ->first();

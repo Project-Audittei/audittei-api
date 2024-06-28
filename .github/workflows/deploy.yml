@@ -17,7 +17,6 @@ jobs:
 
       - name: Preparando artefato
         run: |
-          mkdir -p artifact
           cp -r * artifact/
 
       - name: Salvando artefato

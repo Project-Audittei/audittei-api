@@ -1,106 +1,26 @@
-name: Deploy via FTP
+name: Deploy
 
 on:
   push:
-    branches:
-      - a_ser_definido
+    branches: [master]
 
 jobs:
-  build:
+  PreparandoArtefato:
     runs-on: ubuntu-latest
     steps:
-    
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Criando arquivo .env 
+        run: mv .env.example .env
 
-    - name: Validação de dependências
-      run: composer validate --strict
+      - name: Preparando artefato
+        run: |
+          mkdir -p artifact
+          cp -r ./* ./artifact/
 
-    - name: Criando arquivo .env 
-      run: mv .env.example .env
-    
-    - name: Definindo 'APP_URL'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ APP_URL }}'
-        replacement-text: '${{ secrets.APP_URL }}'
-    
-    - name: Definindo 'DB_HOST'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ DB_HOST }}'
-        replacement-text: '${{ secrets.DB_HOST }}'
-    
-    - name: Definindo 'DB_DATABASE'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ DB_DATABASE }}'
-        replacement-text: '${{ secrets.DB_DATABASE }}'
-    
-    - name: Definindo 'DB_USERNAME'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ DB_USERNAME }}'
-        replacement-text: '${{ secrets.DB_USERNAME }}'
-    
-    - name: Definindo 'DB_PASSWORD'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ DB_PASSWORD }}'
-        replacement-text: '${{ secrets.DB_PASSWORD }}'
-    
-    - name: Definindo 'MAIL_HOST'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ MAIL_HOST }}'
-        replacement-text: '${{ secrets.MAIL_HOST }}'
-    
-    - name: Definindo 'MAIL_PORT'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ MAIL_PORT }}'
-        replacement-text: '${{ secrets.MAIL_PORT }}'
-    
-    - name: Definindo 'MAIL_USERNAME'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ MAIL_USERNAME }}'
-        replacement-text: '${{ secrets.MAIL_USERNAME }}'
-    
-    - name: Definindo 'MAIL_PASSWORD'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ MAIL_PASSWORD }}'
-        replacement-text: '${{ secrets.MAIL_PASSWORD }}'
-    
-    - name: Definindo 'MAIL_FROM_ADDRESS'
-      uses: richardrigutins/replace-in-files@v2
-      with:
-        files: '.env'
-        search-text: '{{ MAIL_FROM_ADDRESS }}'
-        replacement-text: '${{ secrets.MAIL_FROM_ADDRESS }}'
-
-    - name: Trocando versão do PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 8.2
-    - name: Instalação de dependências
-      run: composer install --optimize-autoloader --no-dev
-
-    - name: FTP Deploy
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USER }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./
-        server-dir: ./    
+      - name: Salvando artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: audittei-api
+          path: artifact

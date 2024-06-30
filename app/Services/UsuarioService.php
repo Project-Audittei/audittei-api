@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Constants\TipoCodigoValidacao;
 use App\Exceptions\ExcecaoBasica;
 use App\Language\MensagensValidacao;
+use App\Models\Escritorio;
 use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\DB;
@@ -94,5 +95,10 @@ class UsuarioService extends Service {
 
     public static function ObterUsuarioPorTelefone(string $telefone) : User | null {
         return User::where('telefone', $telefone)->first();
+    }
+
+    public static function VincularUsuarioAoEscritorio(User $usuario, Escritorio $escritorio) {
+        $usuario->escritorio()->associate($escritorio);
+        return $usuario->save();
     }
 }

@@ -8,10 +8,10 @@ enum Mensagens : string {
     case CODIGO_VERIFICACAO_EXPIROU = "Código de validação expirado.";
 
     case SENHA_ALTERADA_SUCESSO = "Senha alterada com sucesso!";
-    case PERFIL_CADASTRO_SUCESSO = "Perfil criado com sucesso!";
+    case ESCRITORIO_CADASTRO_SUCESSO = "Escritório criado com sucesso!";
 
     case NAO_AUTENTICADO = "Você precisa estar autenticado para realizar esta operacação.";
-    case NAO_ENCONTRADO_PERFIL = "Nenhum perfil foi encontrado.";
+    case NAO_ENCONTRADO_ESCRITORIO = "Nenhum escritório foi encontrado.";
     case NAO_ENCONTRADO_USUARIO = "Usuário não encontrado com os dados fornecidos.";
 
     case USUARIO_CADASTRO_SUCESSO = "Cadastrado com sucesso!";

@@ -6,7 +6,7 @@ use App\Exceptions\ExcecaoBasica;
 use App\Language\Mensagens;
 
 abstract class Service {
-    protected static function Salvar($entidade) {
+    public static function Salvar($entidade) {
         try {
             if( $entidade->save() ) {
                 return true;

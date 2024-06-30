@@ -43,7 +43,7 @@ class UsuarioController extends Controller
     public static function Login(Request $request)
     {
         if ($result = UsuarioService::AutenticarUsuario($request->email, $request->senha)) {
-            $result['usuario'] = $request->user();
+            $result['usuario'] = UsuarioService::ObterUsuarioPorGUID($request->user()->guid);
 
             if(!$result['usuario']->email_verified_at) throw new RuntimeException(MensagensValidacao::VALIDACAO_EMAIL_NAO_VERIFICADO->value);
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,9 +41,19 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
         'updated_at',
         'created_at',
+        'escritorio_id',
         'email_verified_at',
         'pivot'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('escritorio', function (Builder $builder) {
+            $builder->with('escritorio');
+        });
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -74,7 +85,7 @@ class User extends Authenticatable implements JWTSubject
         return [];   
     }
 
-    public function perfis() {
-        return $this->belongsToMany(Perfil::class, 'perfil_user', 'usuario_guid', 'perfil_guid');
+    public function escritorio() {
+        return $this->belongsTo(Escritorio::class, 'escritorio_id', 'guid');
     }
 }

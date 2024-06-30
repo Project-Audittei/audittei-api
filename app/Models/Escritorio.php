@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Perfil extends Model
+class Escritorio extends Model
 {
     use HasFactory;
 
-    protected $table = 'perfis';
+    protected $table = 'escritorios';
     protected $primaryKey = 'guid';
     public $incrementing = false;
 
@@ -33,7 +34,7 @@ class Perfil extends Model
     ];
 
     public function usuarios() {
-        return $this->belongsToMany(User::class, 'perfil_user', 'perfil_guid', 'usuario_guid');
+        return $this->hasMany(User::class);
     }
 
 }

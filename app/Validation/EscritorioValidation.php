@@ -2,8 +2,8 @@
 
 namespace App\Validation;
 
-class PerfilValidation extends Validacao {    
-    public static function CadastroParametros() {
+class EscritorioValidation extends Validacao {    
+    public static function CadastroEscritorio() {
         return [
             'cnpj' => self::ObterParametro('cnpj'),
             'razaoSocial' => self::ObterParametro('razaoSocial'),
@@ -21,7 +21,7 @@ class PerfilValidation extends Validacao {
         return [ 'cnpj' => self::ObterParametro('cnpj') ];
     }
     
-    public static function UsuariosDoPerfil() {
-        return [ 'perfil_id' => 'required' ];
+    public static function UsuariosDoEscritorio() {
+        return [ 'escritorio_id' => 'required' ];
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\EscritorioController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\UsuarioController;
 
 Route::get('/api-info', function () {
@@ -16,10 +16,10 @@ Route::get('/api-info', function () {
 });
 
 Route::middleware(['jwt.auth'])->group(function() {
-    Route::post('/perfil/cnpj', [ PerfilController::class, 'ObterCNPJ' ]);
-    Route::post('/perfil/cadastro', [ PerfilController::class, 'CadastrarPerfil' ]);
-    Route::get('/perfil', [ PerfilController::class, 'ObterPerfisUsuario' ]);
-    Route::get('/perfil/usuarios', [ PerfilController::class, 'ObterUsuariosDoPerfil' ]);
+    Route::post('/escritorio/cnpj', [ EscritorioController::class, 'ObterCNPJ' ]);
+    Route::post('/escritorio/cadastro', [ EscritorioController::class, 'CadastrarEscritorio' ]);
+    Route::get('/escritorio', [ EscritorioController::class, 'ObterEscritorioUsuario' ]);
+    Route::get('/escritorio/usuarios', [ EscritorioController::class, 'ObterUsuariosDoEscritorio' ]);
 
     Route::get('/usuario', [ UsuarioController::class, 'ObterDadosUsuario' ]);
 });

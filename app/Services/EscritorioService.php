@@ -14,8 +14,12 @@ class EscritorioService extends Service {
     public static function ObterEscritorioPorID(string $guid) {
         return Escritorio::where('guid', $guid)->first();
     }
+  
+    public static function ObterEscritorioPorCNPJ(string $cnpj) {
+        return Escritorio::where('cnpj', $cnpj)->first();
+    }
 
     public static function VincularEscritorioAoUsuario(Escritorio $escritorio, User $usuario) {
-        return $escritorio->usuarios()->attach($usuario);
+        return UsuarioService::VincularUsuarioAoEscritorio($usuario, $escritorio);
     }
 }

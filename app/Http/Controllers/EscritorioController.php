@@ -19,17 +19,22 @@ class EscritorioController extends Controller
     public static function CadastrarEscritorio(Request $request)
     {
         $escritorio = new Escritorio($request->json()->all());
-        $escritorio->guid = GerarGUID();
         $usuario = $request->user();
-        EscritorioService::Salvar($escritorio);
 
-        if (EscritorioService::VincularEscritorioAoUsuario($escritorio, $usuario)) {
-            return self::EnviarResponse(
-                content: $escritorio,
-                statusCode: 201,
-                message: Mensagens::ESCRITORIO_CADASTRO_SUCESSO->value
-            );
+        if(!$existente = EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj)) {
+            $escritorio->guid = GerarGUID();
+            $escritorio = EscritorioService::Salvar($escritorio);
         }
+
+        if ($existente) $escritorio = $existente;
+
+        EscritorioService::VincularEscritorioAoUsuario($escritorio, $usuario);
+
+        return self::EnviarResponse(
+            content: $escritorio,
+            statusCode: 201,
+            message: Mensagens::ESCRITORIO_CADASTRO_SUCESSO->value
+        );
     }
 
     public static function ObterEscritorioUsuario(Request $request)

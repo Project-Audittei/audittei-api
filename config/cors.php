@@ -18,8 +18,8 @@ return [
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
-
-    'allowed_origins' => ['http://auditteifront.ofernandoavila.com' , 'http://audittei.com.br'],
+  
+    'allowed_origins' => ['https://auditteifront.ofernandoavila.com' , 'https://audittei.com.br'],
 
     'allowed_origins_patterns' => [],
 

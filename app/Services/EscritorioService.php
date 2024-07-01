@@ -24,6 +24,7 @@ class EscritorioService extends Service {
     }
     
     public static function SalvarEscritorio(Escritorio $escritorio) {
-        return $escritorio->save();
+        $escritorio->save();
+        return $escritorio;
     }
 }

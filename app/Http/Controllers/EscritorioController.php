@@ -21,12 +21,12 @@ class EscritorioController extends Controller
         $escritorio = new Escritorio($request->json()->all());
         $usuario = $request->user();
 
-        if(!$existente = EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj)) {
+        if(!EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj)) {
             $escritorio->guid = GerarGUID();
             $escritorio = EscritorioService::Salvar($escritorio);
+        } else {
+            $escritorio = EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj);
         }
-
-        if ($existente) $escritorio = $existente;
 
         EscritorioService::VincularEscritorioAoUsuario($escritorio, $usuario);
 

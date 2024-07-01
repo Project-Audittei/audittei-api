@@ -24,7 +24,7 @@ class Escritorio extends Model
         'logradouro',
         'bairro',
         'cidade',
-        'estado'
+        'uf'
     ];
 
     protected $hidden = [

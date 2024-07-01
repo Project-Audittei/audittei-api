@@ -19,15 +19,15 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://auditteifront.ofernandoavila.com/' , 'http://audittei.com.br/'],
+    'allowed_origins' => ['http://auditteifront.ofernandoavila.com' , 'http://audittei.com.br'],
 
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => [],
+    'exposed_headers' => false,
 
-    'max_age' => 0,
+    'max_age' => false,
 
     'supports_credentials' => false,
 

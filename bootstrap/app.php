@@ -16,9 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->appendToGroup('api', [ValidadorRequisicaoMiddleware::class]);
-        $middleware->use([
-            HandleCors::class
+        $middleware->appendToGroup('api', [
+            HandleCors::class,
+            ValidadorRequisicaoMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

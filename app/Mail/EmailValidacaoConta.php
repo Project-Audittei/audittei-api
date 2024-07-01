@@ -27,7 +27,7 @@ class EmailValidacaoConta extends Mailable
         $this->details = [
             "nome" => $nomeUsuario,
             "codigo_confirmacao" => $hash,
-            "url_confirmacao" => "$this->config['base_url']/confirmar-conta/$hash"
+            "url_confirmacao" => $this->config['base_url'] . "/confirmar-conta/" . $hash
         ];
     }
 

@@ -21,7 +21,7 @@ class Escritorio extends Model
         'telefone',
         'email',
         'cep',
-        'logadouro',
+        'logradouro',
         'bairro',
         'cidade',
         'estado'

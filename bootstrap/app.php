@@ -17,7 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('api', [ValidadorRequisicaoMiddleware::class]);
-        $middleware->appendToGroup('api', [Cors::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Exception $ex) {

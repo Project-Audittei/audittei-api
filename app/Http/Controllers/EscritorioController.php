@@ -23,7 +23,7 @@ class EscritorioController extends Controller
 
         if(!EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj)) {
             $escritorio->guid = GerarGUID();
-            $escritorio = EscritorioService::Salvar($escritorio);
+            $escritorio = EscritorioService::SalvarEscritorio($escritorio);
         } else {
             $escritorio = EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj);
         }

@@ -90,11 +90,11 @@
                     incríveis que oferecemos, por favor, clique no link abaixo para
                     confirmar o seu e-mail:</p>
             </div>
-            <div class="btn"><a class="botao" href="{{ $config['base_url'] }}/auth/redefinir-senha/{{ $details['codigo_confirmacao'] }}">Clique aqui e confirme o seu cadastro</a></div>
+            <div class="btn"><a class="botao" href="{{ $details['url_confirmacao'] }}">Clique aqui e confirme o seu cadastro</a></div>
             <div class="grupo grupo-link">
                 <p>Chave de segurança: <b>{{ $details['codigo_confirmacao'] }}</b></p>
                 <p>Botão não está funcionando? Clique ou copie e cole essa URL:</p>
-                <a href="{{ $config['base_url'] }}/auth/redefinir-senha">{{ $config['base_url'] }}/auth/redefinir-senha</a>
+                <a href="{{ $details['url_confirmacao'] }}">{{ $config['base_url'] }}/auth/redefinir-senha</a>
             </div>
             <br>
             <div class="grupo">

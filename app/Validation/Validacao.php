@@ -11,10 +11,11 @@ abstract class Validacao {
         'telefone' => 'required|min:10|max:11',
         'email' => 'required|email',
         'cep' => 'required',
-        'logadouro' => 'required',
+        'logradouro' => 'required',
         'bairro' => 'required',
         'cidade' => 'required',
         'estado' => 'required',
+        'uf' => 'required',
         'nomeCompleto' => 'required',
         'senha' => 'required|min:8|max:30',
         'hash' => 'required|min:6|max:6'

@@ -10,10 +10,10 @@ class EscritorioValidation extends Validacao {
             'telefone' => self::ObterParametro('telefone'),
             'email' => self::ObterParametro('email'),
             'cep' => self::ObterParametro('cep'),
-            'logadouro' => self::ObterParametro('logadouro'),
+            'logradouro' => self::ObterParametro('logradouro'),
             'bairro' => self::ObterParametro('bairro'),
             'cidade' => self::ObterParametro('cidade'),
-            'estado' => self::ObterParametro('estado')
+            'uf' => self::ObterParametro('uf')
         ];
     }
 

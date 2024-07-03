@@ -28,6 +28,7 @@
         },
         "files": [
             "app/Helpers/GerarGUID.php",
+            "app/Helpers/GerarCNPJ.php",
             "app/Helpers/ValidadorCPF.php"
         ]
     },

@@ -15,20 +15,24 @@ use function App\Helpers\GerarGUID;
 
 class EscritorioController extends Controller
 {
+    public function __construct(
+        private EscritorioService $escritorioService
+    ) { }
+
     #[ValidarRequest(EscritorioValidation::class, 'CadastroEscritorio')]
-    public static function CadastrarEscritorio(Request $request)
+    public function CadastrarEscritorio(Request $request)
     {
         $escritorio = new Escritorio($request->json()->all());
         $usuario = $request->user();
 
-        if(!EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj)) {
+        if (!$this->escritorioService->ObterEscritorioPorCNPJ($escritorio->cnpj)) {
             $escritorio->guid = GerarGUID();
-            $escritorio = EscritorioService::SalvarEscritorio($escritorio);
+            $escritorio = $this->escritorioService->SalvarEscritorio($escritorio);
         } else {
-            $escritorio = EscritorioService::ObterEscritorioPorCNPJ($escritorio->cnpj);
+            $escritorio = $this->escritorioService->ObterEscritorioPorCNPJ($escritorio->cnpj);
         }
 
-        EscritorioService::VincularEscritorioAoUsuario($escritorio, $usuario);
+        $this->escritorioService->VincularEscritorioAoUsuario($escritorio, $usuario);
 
         return self::EnviarResponse(
             content: $escritorio,
@@ -37,15 +41,37 @@ class EscritorioController extends Controller
         );
     }
 
-    public static function ObterEscritorioUsuario(Request $request)
+    #[ValidarRequest(EscritorioValidation::class, 'EditarEscritorio')]
+    public function EditarEscritorio(Request $request)
     {
-        return self::EnviarResponse(content: $request->user()->perfis);
+        if(!$this->escritorioService->ObterEscritorioPorID($request->guid)) throw new EscritorioNaoEncontradoException();
+
+        $dados = [
+            "telefone" => $request->telefone,
+            "email" => $request->email,
+            "cep" => $request->cep,
+            "logradouro" => $request->logradouro,
+            "bairro" => $request->bairro,
+            "cidade" => $request->cidade,
+            "uf" => $request->uf
+        ];
+
+        if($this->escritorioService->AtualizarEscritorio($request->guid, $dados)) {
+            return self::EnviarResponse(message: Mensagens::ESCRITORIO_ATUALIZADO_SUCESSO->value);
+        } else {
+            return self::EnviarResponse(message: Mensagens::ESCRITORIO_ATUALIZADO_ERRO->value, statusCode: 500, success: false);
+        }
+    }
+
+    public function ObterEscritorioUsuario(Request $request)
+    {
+        return self::EnviarResponse(content: $request->user()->escritorio);
     }
 
     #[ValidarRequest(EscritorioValidation::class, 'UsuariosDoEscritorio')]
-    public static function ObterUsuariosDoEscritorio(Request $request)
+    public function ObterUsuariosDoEscritorio(Request $request)
     {
-        $escritorio = EscritorioService::ObterEscritorioPorID($request->escritorio_id);
+        $escritorio = $this->escritorioService->ObterEscritorioPorID($request->escritorio_id);
 
         if (!$escritorio) throw new EscritorioNaoEncontradoException();
 
@@ -53,7 +79,7 @@ class EscritorioController extends Controller
     }
 
     #[ValidarRequest(EscritorioValidation::class, 'CNPJConsultaParametros')]
-    public static function ObterCNPJ(Request $request)
+    public function ObterCNPJ(Request $request)
     {
         return self::EnviarResponse(CNPJService::ObterDadosEmpresa($request->cnpj));
     }

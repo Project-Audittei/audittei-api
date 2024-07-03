@@ -3,6 +3,8 @@
 namespace App\Language;
 
 enum MensagensValidacao : string {
+    case VALIDACAO_GUID_OBRIGATORIO = "O GUID da entidade deve ser preenchido.";
+
     case VALIDACAO_NOME_OBRIGATORIO = "O nome completo deve ser preenchido.";
     case VALIDACAO_SOBRENOME_OBRIGATORIO = "O sobrenome completo deve ser preenchido.";
     

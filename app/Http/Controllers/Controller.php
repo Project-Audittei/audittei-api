@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Language\Mensagens;
+use App\Services\Service;
 
 abstract class Controller
 {

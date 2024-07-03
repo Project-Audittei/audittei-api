@@ -16,9 +16,10 @@ Route::get('/api-info', function () {
 });
 
 Route::middleware(['jwt.auth'])->group(function() {
+    Route::get('/escritorio', [ EscritorioController::class, 'ObterEscritorioUsuario' ]);
     Route::post('/escritorio/cnpj', [ EscritorioController::class, 'ObterCNPJ' ]);
     Route::post('/escritorio/cadastro', [ EscritorioController::class, 'CadastrarEscritorio' ]);
-    Route::get('/escritorio', [ EscritorioController::class, 'ObterEscritorioUsuario' ]);
+    Route::post('/escritorio/editar', [ EscritorioController::class, 'EditarEscritorio' ]);
     Route::get('/escritorio/usuarios', [ EscritorioController::class, 'ObterUsuariosDoEscritorio' ]);
 
     Route::get('/usuario', [ UsuarioController::class, 'ObterDadosUsuario' ]);

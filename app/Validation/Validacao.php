@@ -6,6 +6,7 @@ use App\Language\MensagensValidacao;
 
 abstract class Validacao {
     public static array $parametros = [
+        'guid' => 'required',
         'cnpj' => 'required',
         'razaoSocial' => 'required',
         'telefone' => 'required|min:10|max:11',
@@ -28,6 +29,9 @@ abstract class Validacao {
     public static function ValidacaoMensagens(): array
     {
         return [
+            //guid
+            'guid.required' => MensagensValidacao::VALIDACAO_GUID_OBRIGATORIO->value,
+            
             //nome
             'nomeCompleto.required' => MensagensValidacao::VALIDACAO_NOME_OBRIGATORIO->value,
 

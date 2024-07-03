@@ -34,7 +34,7 @@ class Escritorio extends Model
     ];
 
     public function usuarios() {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'escritorio_id');
     }
 
 }

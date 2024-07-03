@@ -2,29 +2,40 @@
 
 namespace App\Services;
 
+use App\Exceptions\ExcecaoBasica;
+use App\Language\Mensagens;
 use App\Models\Escritorio;
-use App\Models\Perfil;
 use App\Models\User;
 
 class EscritorioService extends Service {
-    public static function ObterListaPerfilUsuario(User $usuario) {
+    public function ObterListaPerfilUsuario(User $usuario) {
         return $usuario->perfis()->toArray();
     }
 
-    public static function ObterEscritorioPorID(string $guid) {
+    public function ObterEscritorioPorID(string $guid) {
         return Escritorio::where('guid', $guid)->first();
     }
   
-    public static function ObterEscritorioPorCNPJ(string $cnpj) {
+    public function ObterEscritorioPorCNPJ(string $cnpj) {
         return Escritorio::where('cnpj', $cnpj)->first();
     }
 
-    public static function VincularEscritorioAoUsuario(Escritorio $escritorio, User $usuario) {
+    public function VincularEscritorioAoUsuario(Escritorio $escritorio, User $usuario) {
         return UsuarioService::VincularUsuarioAoEscritorio($usuario, $escritorio);
     }
     
-    public static function SalvarEscritorio(Escritorio $escritorio) {
+    public function SalvarEscritorio(Escritorio $escritorio) {
         $escritorio->save();
         return $escritorio;
+    }
+
+    public function AtualizarEscritorio(string $guid, array $dados = []) {
+        if(empty($dados)) throw new ExcecaoBasica(Mensagens::GENERICO_ERRO_PARAMETRO_VAZIO);
+
+        if(Escritorio::where('guid', $guid)->update($dados)) {
+            return true;
+        }
+
+        return false;
     }
 }

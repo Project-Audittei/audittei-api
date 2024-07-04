@@ -30,6 +30,10 @@ enum MensagensValidacao : string {
     case VALIDACAO_HASH_MINMAX = "O hash deve conter 6 caracteres";
     
     case VALIDACAO_RAZAO_SOCIAL_OBRIGATORIO = "A razão social deve ser preenchida.";
+
+    case VALIDACAO_RESPONSAVEL_LEGAL_OBRIGATORIO = "O responsável legal deve ser preenchido.";
+
+    case VALIDACAO_NOME_FANTASIA_OBRIGATORIO = "O nome fantasia deve ser preenchido.";
     
     case VALIDACAO_CNPJ_OBRIGATORIO = "O CNPJ deve ser preenchido.";
     case VALIDACAO_CNPJ_MIN = "O CNPJ deve conter ao menos :min caracteres.";

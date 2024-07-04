@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EscritorioController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,8 @@ Route::middleware(['jwt.auth'])->group(function() {
     Route::post('/escritorio/editar', [ EscritorioController::class, 'EditarEscritorio' ]);
     Route::get('/escritorio/usuarios', [ EscritorioController::class, 'ObterUsuariosDoEscritorio' ]);
 
+    Route::post('/empresa/cadastro', [ EmpresaController::class, 'CadastroEmpresa' ]);
+    
     Route::get('/usuario', [ UsuarioController::class, 'ObterDadosUsuario' ]);
 });
 

@@ -13,6 +13,9 @@ enum Mensagens : string {
     case ESCRITORIO_ATUALIZADO_SUCESSO = "Escritório atualizado com sucesso!";
     case ESCRITORIO_ATUALIZADO_ERRO = "Não foi possível atualizar o escritório.";
 
+    case EMPRESA_CADASTRO_SUCESSO = "Empresa criada com sucesso!";
+    case EMPRESA_CADASTRO_ERRO = "Não foi possível criar a empresa.";
+
     case NAO_AUTENTICADO = "Você precisa estar autenticado para realizar esta operacação.";
     case NAO_ENCONTRADO_ESCRITORIO = "Nenhum escritório foi encontrado.";
     case NAO_ENCONTRADO_USUARIO = "Usuário não encontrado com os dados fornecidos.";

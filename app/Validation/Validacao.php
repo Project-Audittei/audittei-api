@@ -9,9 +9,12 @@ abstract class Validacao {
         'guid' => 'required',
         'cnpj' => 'required',
         'razaoSocial' => 'required',
+        'nomeFantasia' => 'required',
+        'responsavelLegal' => 'required',
         'telefone' => 'required|min:10|max:11',
         'email' => 'required|email',
         'cep' => 'required',
+        'numero' => 'required',
         'logradouro' => 'required',
         'bairro' => 'required',
         'cidade' => 'required',
@@ -64,6 +67,12 @@ abstract class Validacao {
 
             //razaoSocial
             'razaoSocial.required' => MensagensValidacao::VALIDACAO_RAZAO_SOCIAL_OBRIGATORIO->value,
+            
+            //responsavelLegal
+            'responsavelLegal.required' => MensagensValidacao::VALIDACAO_RESPONSAVEL_LEGAL_OBRIGATORIO->value,
+            
+            //nomeFantasia
+            'nomeFantasia.required' => MensagensValidacao::VALIDACAO_RESPONSAVEL_LEGAL_OBRIGATORIO->value,
 
             //cnpj
             'cnpj.required' => MensagensValidacao::VALIDACAO_CNPJ_OBRIGATORIO->value,

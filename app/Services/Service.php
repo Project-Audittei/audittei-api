@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Exceptions\ExcecaoBasica;
 use App\Language\Mensagens;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class Service {
     public static function Salvar($entidade) {

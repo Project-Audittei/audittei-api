@@ -11,7 +11,7 @@ class Empresa extends Model
 
     protected $table = 'empresas';
     protected $primaryKey = 'guid';
-    public $increment = false;
+    public $incrementing = false;
 
     protected $fillable = [
         'guid',
@@ -26,7 +26,18 @@ class Empresa extends Model
         'bairro',
         'cidade',
         'numero',
-        'complemetno',
-        'uf'
+        'complemento',
+        'uf',
+        'escritorio_id'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'escritorio_id'
+    ];
+
+    public function escritorio() {
+        return $this->belongsTo(Escritorio::class, 'escritorio_id', 'guid');
+    }
 }

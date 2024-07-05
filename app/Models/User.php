@@ -52,9 +52,7 @@ class User extends Authenticatable implements JWTSubject
         parent::boot();
 
         static::addGlobalScope('escritorio', function (Builder $builder) {
-            if(!request()->is('api/escritorio/*')) {
-                $builder->with('escritorio');
-            }
+            $builder->with('escritorio');
         });
     }
 

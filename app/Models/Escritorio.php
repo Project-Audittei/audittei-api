@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,4 +36,7 @@ class Escritorio extends Model
         return $this->hasMany(User::class, 'escritorio_id');
     }
 
+    public function empresas() {
+        return $this->hasMany(Empresa::class, 'escritorio_id');
+    }
 }

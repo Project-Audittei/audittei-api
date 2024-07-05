@@ -53,4 +53,6 @@ enum MensagensValidacao : string {
     
     case VALIDACAO_ESTADO_OBRIGATORIO = "O estado é obrigatório.";
     case VALIDACAO_ESTADO_MINMAX = "O estado deve conter 6 caracteres.";
+
+    case VALIDACAO_ESCRITORIO_OBRIGATORIO = "É necessário ter um escritório cadastrado para utilizar este recurso.";
 }

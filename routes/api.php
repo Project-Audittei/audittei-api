@@ -22,6 +22,7 @@ Route::middleware(['jwt.auth'])->group(function() {
     Route::post('/escritorio/cadastro', [ EscritorioController::class, 'CadastrarEscritorio' ]);
     Route::post('/escritorio/editar', [ EscritorioController::class, 'EditarEscritorio' ]);
     Route::get('/escritorio/usuarios', [ EscritorioController::class, 'ObterUsuariosDoEscritorio' ]);
+    Route::get('/escritorio/empresas', [ EscritorioController::class, 'ObterEmpresasDoEscritorio' ]);
 
     Route::post('/empresa/cadastro', [ EmpresaController::class, 'CadastroEmpresa' ]);
     

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Attributes\ValidarRequest;
 use App\Exceptions\EscritorioNaoEncontradoException;
+use App\Exceptions\ExcecaoBasica;
 use App\Language\Mensagens;
+use App\Language\MensagensValidacao;
 use App\Models\Escritorio;
 use App\Services\CNPJService;
 use App\Services\EscritorioService;
@@ -76,6 +78,15 @@ class EscritorioController extends Controller
         if (!$escritorio) throw new EscritorioNaoEncontradoException();
 
         return self::EnviarResponse($escritorio->usuarios);
+    }
+
+    public function ObterEmpresasDoEscritorio(Request $request)
+    {
+        $usuario = $request->user();
+
+        if(!$usuario->escritorio) throw new ExcecaoBasica(MensagensValidacao::VALIDACAO_ESCRITORIO_OBRIGATORIO);
+
+        return self::EnviarResponse($usuario->escritorio->empresas);
     }
 
     #[ValidarRequest(EscritorioValidation::class, 'CNPJConsultaParametros')]

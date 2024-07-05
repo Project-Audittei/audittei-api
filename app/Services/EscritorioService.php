@@ -4,10 +4,15 @@ namespace App\Services;
 
 use App\Exceptions\ExcecaoBasica;
 use App\Language\Mensagens;
+use App\Models\Empresa;
 use App\Models\Escritorio;
 use App\Models\User;
 
 class EscritorioService extends Service {
+    public function __construct(
+        private ?EmpresaService $empresaService = null
+    ) {}
+    
     public function ObterListaPerfilUsuario(User $usuario) {
         return $usuario->perfis()->toArray();
     }
@@ -22,6 +27,11 @@ class EscritorioService extends Service {
 
     public function VincularEscritorioAoUsuario(Escritorio $escritorio, User $usuario) {
         return UsuarioService::VincularUsuarioAoEscritorio($usuario, $escritorio);
+    }
+
+    public function VincularEmpresaAoEscritorio(Escritorio $escritorio, Empresa $empresa)
+    {
+        return $this->empresaService->VincularEscritorioAEmpresa($empresa, $escritorio);
     }
     
     public function SalvarEscritorio(Escritorio $escritorio) {

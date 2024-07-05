@@ -10,8 +10,8 @@ class CNPJService {
             "razaoSocial" => $dados["razao_social"],
             "cep" => $dados["estabelecimento"]["cep"],
             "logadouro" =>  $dados["estabelecimento"]["tipo_logradouro"] . " " . 
-                            $dados["estabelecimento"]["logradouro"] . " " . 
-                            $dados["estabelecimento"]["numero"],
+                            $dados["estabelecimento"]["logradouro"],
+            "numero" => $dados["estabelecimento"]["numero"],
             "bairro" => $dados["estabelecimento"]["bairro"],
             "cidade" => $dados["estabelecimento"]["cidade"]["nome"],
             "estado" => $dados["estabelecimento"]["estado"]["sigla"],

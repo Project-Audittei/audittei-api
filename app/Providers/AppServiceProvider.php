@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repository\EmpresaRepository;
 use App\Services\EmpresaService;
 use App\Services\EscritorioService;
 use Illuminate\Support\ServiceProvider;
@@ -17,8 +18,8 @@ class AppServiceProvider extends ServiceProvider
             return new EscritorioService();
         });
         
-        $this->app->singleton(EmpresaService::class, function($app) {
-            return new EmpresaService();
+        $this->app->singleton(EmpresaRepository::class, function($app) {
+            return new EmpresaRepository();
         });
     }
 

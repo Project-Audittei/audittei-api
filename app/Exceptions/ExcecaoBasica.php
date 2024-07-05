@@ -4,9 +4,9 @@ namespace App\Exceptions;
 
 use App\Language\Mensagens;
 use App\Language\MensagensValidacao;
-use Exception;
+use RuntimeException;
 
-class ExcecaoBasica extends Exception {
+class ExcecaoBasica extends RuntimeException {
     public int $httpStatusCode = 500;
 
     public function __construct(Mensagens | MensagensValidacao $label, int $statusCode = 500)

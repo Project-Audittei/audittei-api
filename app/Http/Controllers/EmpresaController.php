@@ -27,16 +27,38 @@ class EmpresaController extends Controller
         $empresa->guid = GerarGUID();
 
         $usuario = $request->user();
-        
         if( !$usuario->escritorio ) throw new ExcecaoBasica(MensagensValidacao::VALIDACAO_ESCRITORIO_OBRIGATORIO);
+        
+        $empresa->associarEscritorio($usuario->escritorio);
 
-        $this->empresaService->VincularEscritorioAEmpresa($empresa, $usuario->escritorio);
-        $empresa = $this->empresaService->SalvarEmpresa($empresa);
+        if($empresa = $this->empresaService->SalvarEmpresa($empresa)) {
+            $this->empresaService->AdicionarUsuarioAEmpresa($empresa, $usuario);
 
+            return self::EnviarResponse(
+                statusCode: 201,
+                content: [ $empresa ],
+                message: Mensagens::EMPRESA_CADASTRO_SUCESSO->value
+            );
+        }
 
         return self::EnviarResponse(
-            content: [ $empresa ],
-            message: Mensagens::EMPRESA_CADASTRO_SUCESSO->value
+            statusCode: 500,
+            success: false,
+            message: Mensagens::GENERICO_ERRO_SALVAR_ENTIDADE->value
+        );
+    }
+    
+    public function ObterUsuariosVinculadosAEmpresa(string $guid) {
+        return self::EnviarResponse(
+            content: [ $this->empresaService->ObterUsuariosEmpresaPorGUID($guid) ],
+            message: Mensagens::GENERICO_CONSULTA_SUCESSO->value
+        );
+    }
+    
+    public function ObterEmpresa(string $guid) {
+        return self::EnviarResponse(
+            content: $this->empresaService->ObterEmpresaPorGUID($guid),
+            message: Mensagens::GENERICO_CONSULTA_SUCESSO->value
         );
     }
 }

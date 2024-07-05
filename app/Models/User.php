@@ -52,7 +52,9 @@ class User extends Authenticatable implements JWTSubject
         parent::boot();
 
         static::addGlobalScope('escritorio', function (Builder $builder) {
-            $builder->with('escritorio');
+            if (request()->is('api/usuario*')) {
+                $builder->with('escritorio');
+            }
         });
     }
 
@@ -88,5 +90,14 @@ class User extends Authenticatable implements JWTSubject
 
     public function escritorio() {
         return $this->belongsTo(Escritorio::class, 'escritorio_id', 'guid');
+    }
+
+    public function empresas() {
+        return $this->belongsToMany(Empresa::class, 'empresa_usuario', 'usuario_guid', 'empresa_guid');
+    }
+
+    public function associarEmpresa(Empresa $empresa) {
+        $this->empresas()->attach($empresa->guid);
+        return $this->save();
     }
 }

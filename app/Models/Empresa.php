@@ -40,4 +40,20 @@ class Empresa extends Model
     public function escritorio() {
         return $this->belongsTo(Escritorio::class, 'escritorio_id', 'guid');
     }
+
+    public function usuarios() {
+        return $this->belongsToMany(User::class, 'empresa_usuario', 'empresa_guid', 'usuario_guid');
+    }
+
+    public function associarEscritorio(Escritorio $escritorio) {
+        return $this->escritorio()->associate($escritorio);
+    }
+
+    public function associarUsuario(User $usuario) {
+        return $this->usuarios()->attach($usuario->guid);
+    }
+    
+    public function desassociarUsuario(User $usuario) {
+        return $this->usuarios()->detach($usuario->guid);
+    }
 }

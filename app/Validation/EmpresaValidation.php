@@ -19,4 +19,10 @@ class EmpresaValidation extends Validacao {
             'uf' => self::ObterParametro('uf'),
         ];
     }
+
+    public static function ObterUsuariosVinculadosAEmpresa() {
+        return [
+            'guid' => self::ObterParametro('guid')
+        ];
+    }
 }

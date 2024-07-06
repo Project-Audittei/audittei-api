@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,10 +33,24 @@ class Empresa extends Model
     ];
 
     protected $hidden = [
-        'created_at',
         'updated_at',
         'escritorio_id'
     ];
+
+    protected $casts = [
+        'created_at' => 'date'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('escritorio', function (Builder $builder) {
+            if (request()->is('api/empresa*')) {
+                $builder->with('usuarios');
+            }
+        });
+    }
 
     public function escritorio() {
         return $this->belongsTo(Escritorio::class, 'escritorio_id', 'guid');

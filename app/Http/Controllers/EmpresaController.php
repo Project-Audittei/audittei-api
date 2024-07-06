@@ -8,6 +8,7 @@ use App\Language\Mensagens;
 use App\Language\MensagensValidacao;
 use App\Models\Empresa;
 use App\Services\EmpresaService;
+use App\Services\EscritorioService;
 use App\Validation\EmpresaValidation;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ use function App\Helpers\GerarGUID;
 class EmpresaController extends Controller
 {
     public function __construct(
-        private EmpresaService $empresaService
+        private EmpresaService $empresaService,
+        private EscritorioService $escritorioService
     )
     {}
 
@@ -48,6 +50,16 @@ class EmpresaController extends Controller
         );
     }
     
+    #[ValidarRequest(EmpresaValidation::class, 'AtualizarEmpresa')]
+    public function AtualizarEmpresa(Request $request)
+    {    
+        return self::EnviarResponse(
+            statusCode: 201,
+            content: [ $this->empresaService->AtualizarEmpresa(new Empresa($request->json()->all())) ],
+            message: Mensagens::EMPRESA_ATUALIZACAO_SUCESSO->value
+        );
+    }
+    
     public function ObterUsuariosVinculadosAEmpresa(string $guid) {
         return self::EnviarResponse(
             content: [ $this->empresaService->ObterUsuariosEmpresaPorGUID($guid) ],
@@ -58,6 +70,13 @@ class EmpresaController extends Controller
     public function ObterEmpresa(string $guid) {
         return self::EnviarResponse(
             content: $this->empresaService->ObterEmpresaPorGUID($guid),
+            message: Mensagens::GENERICO_CONSULTA_SUCESSO->value
+        );
+    }
+
+    public function ObterTodasEmpresas() {
+        return self::EnviarResponse(
+            content: $this->escritorioService->ObterEmpresas(),
             message: Mensagens::GENERICO_CONSULTA_SUCESSO->value
         );
     }

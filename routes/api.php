@@ -27,7 +27,9 @@ Route::middleware(['jwt.auth'])->group(function() {
     Route::get('/escritorio/empresas', [ EscritorioController::class, 'ObterEmpresasDoEscritorio' ]);
 
     // Empresa
+    Route::get('/empresa', [ EmpresaController::class, 'ObterTodasEmpresas' ]);
     Route::post('/empresa/cadastro', [ EmpresaController::class, 'CadastroEmpresa' ]);
+    Route::post('/empresa/atualizar', [ EmpresaController::class, 'AtualizarEmpresa' ]);
     Route::get('/empresa/usuarios/{guid}', [ EmpresaController::class, 'ObterUsuariosVinculadosAEmpresa' ]);
     Route::get('/empresa/{guid}', [ EmpresaController::class, 'ObterEmpresa' ]);
     

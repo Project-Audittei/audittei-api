@@ -19,6 +19,16 @@ class EmpresaValidation extends Validacao {
             'uf' => self::ObterParametro('uf'),
         ];
     }
+    
+    public static function AtualizarEmpresa() {
+        return [
+            'nomeFantasia' => self::ObterParametro('nomeFantasia'),
+            'responsavelLegal' => self::ObterParametro('responsavelLegal'),
+            'email' => self::ObterParametro('email'),
+            'telefone' => self::ObterParametro('telefone'),
+            'complemento' => self::ObterParametro('complemento')
+        ];
+    }
 
     public static function ObterUsuariosVinculadosAEmpresa() {
         return [

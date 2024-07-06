@@ -31,6 +31,8 @@ enum MensagensValidacao : string {
     
     case VALIDACAO_RAZAO_SOCIAL_OBRIGATORIO = "A razão social deve ser preenchida.";
 
+    case VALIDACAO_COMPLEMENTO_OBRIGATORIO = "O complemento deve ser preenchido.";
+
     case VALIDACAO_RESPONSAVEL_LEGAL_OBRIGATORIO = "O responsável legal deve ser preenchido.";
 
     case VALIDACAO_NOME_FANTASIA_OBRIGATORIO = "O nome fantasia deve ser preenchido.";

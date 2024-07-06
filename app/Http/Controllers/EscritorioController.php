@@ -82,11 +82,9 @@ class EscritorioController extends Controller
 
     public function ObterEmpresasDoEscritorio(Request $request)
     {
-        $usuario = $request->user();
-
-        if(!$usuario->escritorio) throw new ExcecaoBasica(MensagensValidacao::VALIDACAO_ESCRITORIO_OBRIGATORIO);
-
-        return self::EnviarResponse($usuario->escritorio->empresas);
+        return self::EnviarResponse(
+            content: $this->escritorioService->ObterEmpresas()
+        );
     }
 
     #[ValidarRequest(EscritorioValidation::class, 'CNPJConsultaParametros')]

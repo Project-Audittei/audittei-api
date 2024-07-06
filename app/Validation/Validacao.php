@@ -15,6 +15,7 @@ abstract class Validacao {
         'email' => 'required|email',
         'cep' => 'required',
         'numero' => 'required',
+        'complemento' => 'required',
         'logradouro' => 'required',
         'bairro' => 'required',
         'cidade' => 'required',
@@ -73,6 +74,9 @@ abstract class Validacao {
             
             //nomeFantasia
             'nomeFantasia.required' => MensagensValidacao::VALIDACAO_RESPONSAVEL_LEGAL_OBRIGATORIO->value,
+            
+            //complemento
+            'complemento.required' => MensagensValidacao::VALIDACAO_COMPLEMENTO_OBRIGATORIO->value,
 
             //cnpj
             'cnpj.required' => MensagensValidacao::VALIDACAO_CNPJ_OBRIGATORIO->value,

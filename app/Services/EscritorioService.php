@@ -28,11 +28,6 @@ class EscritorioService extends Service {
     public function VincularEscritorioAoUsuario(Escritorio $escritorio, User $usuario) {
         return UsuarioService::VincularUsuarioAoEscritorio($usuario, $escritorio);
     }
-
-    public function VincularEmpresaAoEscritorio(Escritorio $escritorio, Empresa $empresa)
-    {
-        return $this->empresaService->VincularEscritorioAEmpresa($empresa, $escritorio);
-    }
     
     public function SalvarEscritorio(Escritorio $escritorio) {
         $escritorio->save();
@@ -47,5 +42,10 @@ class EscritorioService extends Service {
         }
 
         return false;
+    }
+
+    public function ObterEmpresas() {
+        $usuario = request()->user();
+        return $usuario->escritorio->empresas;
     }
 }

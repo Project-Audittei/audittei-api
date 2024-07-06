@@ -4,14 +4,11 @@ namespace App\Services;
 
 use App\Exceptions\ExcecaoBasica;
 use App\Language\Mensagens;
-use App\Language\MensagensValidacao;
 use App\Models\Empresa;
-use App\Models\Escritorio;
 use App\Models\User;
 use App\Repository\EmpresaRepository;
 
 class EmpresaService extends Service {
-
     public function __construct(
         private EmpresaRepository $repositorio
     ) {}
@@ -20,6 +17,20 @@ class EmpresaService extends Service {
         if($this->repositorio->VerificaSeEscritorioGerenciaEmpresa($empresa)) {
             throw new ExcecaoBasica(Mensagens::EMPRESA_CADASTRO_EXISTENTE);
         }
+
+        $empresa = $this->repositorio->salvar($empresa);
+
+        return $empresa;
+    }
+
+    public function AtualizarEmpresa(Empresa $entidade) {
+        $empresa = $this->ObterEmpresaPorGUID($entidade->guid);
+
+        $empresa->nomeFantasia = $entidade->nomeFantasia;
+        $empresa->responsavelLegal = $entidade->responsavelLegal;
+        $empresa->email = $entidade->email;
+        $empresa->telefone = $entidade->telefone;
+        $empresa->complemento = $entidade->complemento;
 
         $empresa = $this->repositorio->salvar($empresa);
 

@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
   
-    'allowed_origins' => ['https://auditteifront.ofernandoavila.com' , 'https://audittei.com.br'],
+    'allowed_origins' => ['https://auditteifront.ofernandoavila.com' , 'https://audittei.com.br', 'http://localhost:3000'],
 
     'allowed_origins_patterns' => [],
 

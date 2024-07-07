@@ -11,6 +11,7 @@ class EscritorioValidation extends Validacao {
             'email' => self::ObterParametro('email'),
             'cep' => self::ObterParametro('cep'),
             'logradouro' => self::ObterParametro('logradouro'),
+            'numero' => self::ObterParametro('numero'),
             'bairro' => self::ObterParametro('bairro'),
             'cidade' => self::ObterParametro('cidade'),
             'uf' => self::ObterParametro('uf')

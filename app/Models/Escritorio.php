@@ -21,6 +21,8 @@ class Escritorio extends Model
         'email',
         'cep',
         'logradouro',
+        'numero',
+        'complemento',
         'bairro',
         'cidade',
         'uf'

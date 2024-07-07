@@ -25,8 +25,7 @@ class EmpresaValidation extends Validacao {
             'nomeFantasia' => self::ObterParametro('nomeFantasia'),
             'responsavelLegal' => self::ObterParametro('responsavelLegal'),
             'email' => self::ObterParametro('email'),
-            'telefone' => self::ObterParametro('telefone'),
-            'complemento' => self::ObterParametro('complemento')
+            'telefone' => self::ObterParametro('telefone')
         ];
     }
 

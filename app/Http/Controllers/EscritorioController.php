@@ -46,19 +46,7 @@ class EscritorioController extends Controller
     #[ValidarRequest(EscritorioValidation::class, 'EditarEscritorio')]
     public function EditarEscritorio(Request $request)
     {
-        if(!$this->escritorioService->ObterEscritorioPorID($request->guid)) throw new EscritorioNaoEncontradoException();
-
-        $dados = [
-            "telefone" => $request->telefone,
-            "email" => $request->email,
-            "cep" => $request->cep,
-            "logradouro" => $request->logradouro,
-            "bairro" => $request->bairro,
-            "cidade" => $request->cidade,
-            "uf" => $request->uf
-        ];
-
-        if($this->escritorioService->AtualizarEscritorio($request->guid, $dados)) {
+        if($this->escritorioService->AtualizarEscritorio(new Escritorio($request->json()->all()))) {
             return self::EnviarResponse(message: Mensagens::ESCRITORIO_ATUALIZADO_SUCESSO->value);
         } else {
             return self::EnviarResponse(message: Mensagens::ESCRITORIO_ATUALIZADO_ERRO->value, statusCode: 500, success: false);

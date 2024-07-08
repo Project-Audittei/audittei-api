@@ -34,14 +34,22 @@ class EscritorioService extends Service {
         return $escritorio;
     }
 
-    public function AtualizarEscritorio(string $guid, array $dados = []) {
-        if(empty($dados)) throw new ExcecaoBasica(Mensagens::GENERICO_ERRO_PARAMETRO_VAZIO);
+    public function AtualizarEscritorio(Escritorio $entidade) {
+        $escritorio = $this->ObterEscritorioPorID(request()->user()->escritorio->guid);
 
-        if(Escritorio::where('guid', $guid)->update($dados)) {
-            return true;
-        }
+        $escritorio->telefone = $entidade->telefone;
+        $escritorio->email = $entidade->email;
+        // $escritorio->cep = $entidade->cep;
+        // $escritorio->logradouro = $entidade->logradouro;
+        // $escritorio->bairro = $entidade->bairro;
+        // $escritorio->cidade = $entidade->cidade;
+        // $escritorio->numero = $entidade->numero;
+        $escritorio->complemento = $entidade->complemento;
+        // $escritorio->uf = $entidade->uf;
 
-        return false;
+        $escritorio = $this->SalvarEscritorio($escritorio);
+
+        return $escritorio;
     }
 
     public function ObterEmpresas() {

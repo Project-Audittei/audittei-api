@@ -20,14 +20,14 @@ class EscritorioValidation extends Validacao {
     
     public static function EditarEscritorio() {
         return [
-            'guid' => self::ObterParametro('guid'),
             'telefone' => self::ObterParametro('telefone'),
             'email' => self::ObterParametro('email'),
-            'cep' => self::ObterParametro('cep'),
-            'logradouro' => self::ObterParametro('logradouro'),
-            'bairro' => self::ObterParametro('bairro'),
-            'cidade' => self::ObterParametro('cidade'),
-            'uf' => self::ObterParametro('uf')
+            // 'cep' => self::ObterParametro('cep'),
+            // 'logradouro' => self::ObterParametro('logradouro'),
+            // 'bairro' => self::ObterParametro('bairro'),
+            // 'cidade' => self::ObterParametro('cidade'),
+            // 'numero' => self::ObterParametro('numero'),
+            // 'uf' => self::ObterParametro('uf')
         ];
     }
 

@@ -12,6 +12,7 @@ class Empresa extends Model
 
     protected $table = 'empresas';
     protected $primaryKey = 'guid';
+    protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [

@@ -11,6 +11,7 @@ class Escritorio extends Model
 
     protected $table = 'escritorios';
     protected $primaryKey = 'guid';
+    protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [

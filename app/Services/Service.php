@@ -20,4 +20,8 @@ abstract class Service {
     protected static function Deletar($entidade) {
         return $entidade->delete();
     }
+
+    public function ObterUsuarioLogado() {
+        return request()->user();
+    }
 }

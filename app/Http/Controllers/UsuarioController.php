@@ -17,6 +17,11 @@ use RuntimeException;
 
 class UsuarioController extends Controller
 {
+
+    public function __construct(
+        private UsuarioService $usuarioService
+    ) {}
+
     #[ValidarRequest(UsuarioValidation::class, 'CadastroParametros')]
     public static function CadastrarUsuario(Request $request) {
         $usuario = new User($request->json()->all());
@@ -79,6 +84,27 @@ class UsuarioController extends Controller
     public static function ObterDadosUsuario(Request $request) {
         return self::EnviarResponse(
             content: $request->user()
+        );
+    }
+
+    #[ValidarRequest(UsuarioValidation::class, 'AtualizarCadastro')]
+    public function AtualizarCadastro(Request $request) {
+        $this->usuarioService->AtualizarDadosCadastrais(
+            nome: $request->nomeCompleto,
+            telefone: $request->telefone
+        );
+
+        return self::EnviarResponse(
+            message: Mensagens::USUARIO_CADASTRO_ATUALIZADO->value
+        );
+    }
+
+    #[ValidarRequest(UsuarioValidation::class, 'AtualizarSenha')]
+    public function AtualizarSenha(Request $request) {
+        $this->usuarioService->AtualizarSenhaUsuario($request->novaSenha, $request->senhaAtual);
+
+        return self::EnviarResponse(
+            message: Mensagens::USUARIO_SENHA_ATUALIZADA->value
         );
     }
 }

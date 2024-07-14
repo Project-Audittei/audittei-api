@@ -35,6 +35,8 @@ Route::middleware(['jwt.auth'])->group(function() {
     
     // Usuário
     Route::get('/usuario', [ UsuarioController::class, 'ObterDadosUsuario' ]);
+    Route::put('/usuario/atualizar-cadastro', [ UsuarioController::class, 'AtualizarCadastro' ]);
+    Route::put('/usuario/atualizar-senha', [ UsuarioController::class, 'AtualizarSenha' ]);
 });
 
 Route::post('/auth/cadastro', [ UsuarioController::class, 'CadastrarUsuario' ]);

@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Constants\TipoCodigoValidacao;
 use App\Exceptions\ExcecaoBasica;
+use App\Language\Mensagens;
 use App\Language\MensagensValidacao;
 use App\Models\Escritorio;
 use App\Models\User;
+use App\Repository\UsuarioRepository;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Hash;
 use function App\Helpers\GerarGUID;
 
 class UsuarioService extends Service {
+
+    public function __construct(
+        private UsuarioRepository $repository
+    ) {}
+
     public static function SalvarUsuario(User $usuario) {
         try {
             DB::beginTransaction();
@@ -100,5 +107,33 @@ class UsuarioService extends Service {
     public static function VincularUsuarioAoEscritorio(User $usuario, Escritorio $escritorio) {
         $usuario->escritorio()->associate($escritorio);
         return $usuario->save();
+    }
+
+    public function AtualizarDadosCadastrais(string $nome = '', string $telefone = '') {
+        $usuario = $this->ObterUsuarioLogado();
+
+        if(!empty($nome)) {
+            $this->repository->AtualizarNomePorGUID($usuario->guid, $nome);
+        }
+
+        if(!empty($telefone)) {
+            $this->repository->AtualizarTelefonePorGUID($usuario->guid, $telefone);
+        }
+
+        return true;
+    }
+
+    public function AtualizarSenhaUsuario(string $novaSenha, string $senhaAtual) {
+        $usuario = $this->ObterUsuarioLogado();
+
+        if(!$this->ChecarSenhaUsuario($usuario, $senhaAtual)) throw new ExcecaoBasica(Mensagens::USUARIO_SENHA_INCORRETA);
+
+        $this->repository->AtualizarSenhaPorGUID($usuario->guid, $novaSenha);
+
+        return true;
+    }
+
+    private function ChecarSenhaUsuario(User $usuario, string $senha) : bool {
+        return Hash::check($senha, $usuario->senha);
     }
 }

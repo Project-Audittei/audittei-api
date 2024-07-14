@@ -37,4 +37,18 @@ class UsuarioValidation extends Validacao {
             'senha' => self::ObterParametro('senha'),
         ];
     }
+
+    public static function AtualizarCadastro() : array {
+        return [
+            'nomeCompleto' => self::ObterParametro('nomeCompleto'),
+            'telefone' => self::ObterParametro('telefone')
+        ];
+    }
+
+    public static function AtualizarSenha() : array {
+        return [
+            'novaSenha' => self::ObterParametro('senha'),
+            'senhaAtual' => self::ObterParametro('senha')
+        ];
+    }
 }

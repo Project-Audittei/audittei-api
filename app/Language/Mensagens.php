@@ -24,11 +24,15 @@ enum Mensagens : string {
     case NAO_ENCONTRADO_USUARIO = "Usuário não encontrado com os dados fornecidos.";
 
     case USUARIO_CADASTRO_SUCESSO = "Cadastrado com sucesso!";
+    case USUARIO_CADASTRO_ATUALIZADO = "Dados cadastrais atualizados com sucessos!";
+
+    case USUARIO_SENHA_ATUALIZADA = "Sua senha foi alterada com sucesso!";
     
     case USUARIO_CONTA_VALIDADA = "Conta validada com sucesso!";
     case USUARIO_LOGIN_SUCESSO = "Autenticado com sucesso!";
     case USUARIO_LOGIN_ERRO = "Usuário/senha incorreto";
     case USUARIO_SENHA_ALTERADA_ERRO = "Não foi possível redefinir sua senha.";
+    case USUARIO_SENHA_INCORRETA = "A senha desta conta está incorreta.";
 
     case GENERICO_ERRO_PARAMETRO_VAZIO = "É necessário preencher os parâmetros para realizar esta operação.";
     case GENERICO_ERRO_SALVAR_ENTIDADE = "Não foi possível salvar a entidade.";

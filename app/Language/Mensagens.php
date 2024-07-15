@@ -33,6 +33,7 @@ enum Mensagens : string {
     case USUARIO_LOGIN_ERRO = "Usuário/senha incorreto";
     case USUARIO_SENHA_ALTERADA_ERRO = "Não foi possível redefinir sua senha.";
     case USUARIO_SENHA_INCORRETA = "A senha desta conta está incorreta.";
+    case USUARIO_TELEFONE_EXISTENTE = "Este telefone já está sendo utilizado.";
 
     case GENERICO_ERRO_PARAMETRO_VAZIO = "É necessário preencher os parâmetros para realizar esta operação.";
     case GENERICO_ERRO_SALVAR_ENTIDADE = "Não foi possível salvar a entidade.";

@@ -12,12 +12,14 @@ class CNPJService {
 
         $empresa = [
             "razaoSocial" => $dados["razao_social"],
+            "nomeFantasia" => $dados["estabelecimento"]["nome_fantasia"],
             "email" => $dados["estabelecimento"]["email"],
             "telefone" => $telefone,
             "cep" => $dados["estabelecimento"]["cep"],
             "logradouro" =>  $dados["estabelecimento"]["tipo_logradouro"] . " " . 
                             $dados["estabelecimento"]["logradouro"],
             "numero" => $dados["estabelecimento"]["numero"],
+            "complemento" => $dados["estabelecimento"]["complemento"],
             "bairro" => $dados["estabelecimento"]["bairro"],
             "cidade" => $dados["estabelecimento"]["cidade"]["nome"],
             "uf" => $dados["estabelecimento"]["estado"]["sigla"],
